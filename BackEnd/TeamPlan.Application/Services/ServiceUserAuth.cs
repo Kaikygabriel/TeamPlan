@@ -1,5 +1,4 @@
 using TeamPlan.Domain.BackOffice.Commum;
-using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 using TeamPlan.Domain.BackOffice.Interfaces.Services;
@@ -13,17 +12,6 @@ internal class ServiceUserAuth:  IUserServiceAuth
     public ServiceUserAuth(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-    }
-
-
-    public async Task<Result> CreateUser(User user)
-    {
-        if (await GetUserByEmail(user.Email.Address) is not null)
-            return Result.Failure(new("User.Existing", "User already exists !"));
-        var hashPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        user.AlterPassword(hashPassword);
-        _unitOfWork.UserRepository.Create(user);
-        return Result.Success();
     }
 
         
@@ -42,5 +30,5 @@ internal class ServiceUserAuth:  IUserServiceAuth
         => await _unitOfWork.UserRepository.GetByPredicate(x => x.Email.Address == email);
 
     private bool VerifyPassword(User user, string password)
-        => BCrypt.Net.BCrypt.Verify(password, user.Password);
+        => BCrypt.Net.BCrypt.Verify(password, user.Password.PasswordHash);
 }

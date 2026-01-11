@@ -17,18 +17,20 @@ internal class RegisterOwnerHandler : HandlerBaseOwnerAuth,IRequestHandler<Regis
 
     public async Task<Result<OwnerAuthResponse>> Handle(RegisterOwnerRequest request, CancellationToken cancellationToken)
     {
-        var resultCreateOwner = request.CreateOwner();
+        var resultCreateOwner = request.ToEntity();
         if (!resultCreateOwner.IsSuccess)
             return Result<OwnerAuthResponse>.Failure(resultCreateOwner.Error);
-        var resultCreateUser = await UserServiceAuth.CreateUser(resultCreateOwner.Value.User);
-        if(!resultCreateUser.IsSuccess)
-            return Result<OwnerAuthResponse>.Failure(resultCreateUser.Error);
-        _unitOfWork.OwnerRepository.Create(resultCreateOwner.Value);
+        
+        var owner = resultCreateOwner.Value;
+        if (await _unitOfWork.UserRepository.GetUserExistsByEmail(owner.User.Email.Address))
+            return Result<OwnerAuthResponse>.Failure(new("user.exists", "user already exists!"));
+        
+        _unitOfWork.OwnerRepository.Create(owner);
         await _unitOfWork.CommitAsync();
 
-        var token = GenerateAcessTokenByOwner(resultCreateOwner.Value);
-        var response = new OwnerAuthResponse(token , resultCreateOwner.Value.Id);
+        var token = GenerateAcessTokenByOwner(owner);
+        var response = new OwnerAuthResponse(token , owner.Id);
         return Result<OwnerAuthResponse>.Success(response);
     }
-    
+   
 }

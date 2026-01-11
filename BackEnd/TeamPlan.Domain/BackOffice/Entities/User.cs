@@ -11,7 +11,7 @@ public class User : Entity
     {
         
     }
-    private User(Email email, string password)
+    private User(Email email, Password password)
     {
         Email = email;
         Password = password;
@@ -19,25 +19,16 @@ public class User : Entity
     }
 
     public Email Email { get;private set; }
-    public string Password { get;private set; }
+    public Password Password { get;private set; }
 
     public Result AlterPassword(string password)
-    {
-        if(PasswordIsInvalid(password))
-            return Result.Failure(new("Password.Invalid","Password in user invalid!"));
-        Password = password;
-        return Result.Success();
-    }
+        => Password.Update(password);
+   
     public static class Factories
     {
-        public static Result<User> Create(string password,Email email)
+        public static Result<User> Create(Password password,Email email)
         {
-            if (PasswordIsInvalid(password))
-                return Result<User>.Failure(new("Password.Invalid","Password in user invalid!"));
             return Result<User>.Success(new(email,password));
         }
     }
-
-    private static bool PasswordIsInvalid(string password)
-        => string.IsNullOrWhiteSpace(password) || password.Length < 3;
 }

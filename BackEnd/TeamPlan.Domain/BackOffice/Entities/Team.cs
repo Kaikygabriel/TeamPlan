@@ -36,6 +36,8 @@ public class Team : Entity
     public void RemoveMember(Member member)
         => Members.Remove(member);
 
+    
+    
     public static class Factories
     {
         public static Result<Team> Create(string name, Member manager)
