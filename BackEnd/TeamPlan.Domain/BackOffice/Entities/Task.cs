@@ -23,7 +23,8 @@ public class Task: Entity
     public Member? Member { get;private set; }
     public DateTime CreateAt { get;private set; }
     public DateTime EndDate { get;private set; }
-    public ushort Percentage { get;private set; }
+    public ushort Percentage { get;set; }
+    public bool Active { get; set; }
     public string Title { get;private set; }
     public  string Description { get;private set; }
     public Guid TeamId { get; set; }

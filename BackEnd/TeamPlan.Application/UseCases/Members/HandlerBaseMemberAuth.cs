@@ -7,7 +7,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Services;
 
 namespace TeamPlan.Application.UseCases.Members;
 
-public class HandlerBaseMemberAuth : HandlerBase
+internal class HandlerBaseMemberAuth : HandlerBase
 {
     protected readonly ITokenService TokenService;
 

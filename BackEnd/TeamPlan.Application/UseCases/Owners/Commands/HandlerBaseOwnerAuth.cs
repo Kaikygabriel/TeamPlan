@@ -7,7 +7,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Services;
 
 namespace TeamPlan.Application.UseCases.Owners.Commands;
 
-public abstract class HandlerBaseOwnerAuth : HandlerBase
+internal abstract class HandlerBaseOwnerAuth : HandlerBase
 {
     protected readonly IUserServiceAuth UserServiceAuth;
     protected readonly ITokenService TokenService;

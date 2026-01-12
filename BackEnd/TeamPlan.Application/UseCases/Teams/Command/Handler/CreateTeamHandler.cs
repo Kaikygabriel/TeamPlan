@@ -20,6 +20,7 @@ internal class CreateTeamHandler : HandlerBase,IRequestHandler<CreateTeamRequest
             return Result<Team>.Failure(resultCreateTeam.Error);
         
         _unitOfWork.TeamRepository.Create(resultCreateTeam.Value);
+        
         return await Task.FromResult(Result<Team>.Success(resultCreateTeam.Value));
     }
 }

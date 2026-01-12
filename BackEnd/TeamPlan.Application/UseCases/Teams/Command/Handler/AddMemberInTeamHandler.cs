@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Teams.Command.Handler ;
 
-public class AddMemberInTeamHandler : HandlerBase,IRequestHandler<AddMemberInTeamRequest,Result>
+internal class AddMemberInTeamHandler : HandlerBase,IRequestHandler<AddMemberInTeamRequest,Result>
 {
     public AddMemberInTeamHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
@@ -14,11 +14,11 @@ public class AddMemberInTeamHandler : HandlerBase,IRequestHandler<AddMemberInTea
 
     public async Task<Result> Handle(AddMemberInTeamRequest request, CancellationToken cancellationToken)
     {
-        Member? member = await _unitOfWork.MemberRepository.GetByEmail(request.EmailMember);
+        var member = await _unitOfWork.MemberRepository.GetByEmail(request.EmailMember);
         if (member is null)
             return Result.Failure(new("Member.NotFound", "Member not found!"));
         
-        Team? team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
+        var team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
         if (team is null)
             return Result.Failure(new("Team.NotFound", "Team not found!"));
         if(team.ManagerId != request.ManagerId)

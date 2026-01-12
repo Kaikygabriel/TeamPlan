@@ -25,7 +25,8 @@ public class Enterprise: Entity
 
     public void AddTeam(Team team)
         => Teams.Add(team);
-    
+    public void RemoveTeam(Team team)
+        => Teams.Remove(team);
     public static class Factories
     {
         public static Result<Enterprise> Create(string name, Owner owner)

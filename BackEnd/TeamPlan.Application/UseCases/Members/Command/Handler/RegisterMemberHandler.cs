@@ -7,7 +7,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Services;
 
 namespace TeamPlan.Application.UseCases.Members.Command.Handler;
 
-public class RegisterMemberHandler : HandlerBaseMemberAuth,IRequestHandler<RegisterMemberRequest,Result<AuthMemberResponse>>
+internal class RegisterMemberHandler : HandlerBaseMemberAuth,IRequestHandler<RegisterMemberRequest,Result<AuthMemberResponse>>
 {
     public RegisterMemberHandler(IUnitOfWork unitOfWork, ITokenService tokenService, IUserServiceAuth userServiceAuth) 
         : base(unitOfWork, tokenService)
