@@ -23,8 +23,9 @@ internal class DashBoardEnterpriseHandler : HandlerBase,IRequestHandler<DashBoar
         var percentageTeams = enterprise.Teams.Select(x => x.PercentageByMonthCurrent);
         var percentageEnterprise = (ushort)percentageTeams.Average(x=>x);
 
+        var teamsInOrder = enterprise.Teams.OrderBy(x => x.PercentageByMonthCurrent);
         return Result<EnterpriseDashBoardDTO>.Success
-            (new(enterprise.Name, enterprise.Teams, percentageEnterprise));
+            (new(enterprise.Name, teamsInOrder, percentageEnterprise));
     }
 
 }

@@ -15,10 +15,9 @@ internal class FinishTaskHandler : HandlerBase,IRequestHandler<FinishTaskRequest
     {
         var task = await _unitOfWork.TaskRepository.GetByPredicate(x => x.Id == request.IdTask);
         if (task is null)
-            return Result.Failure(new("Task.NotFound", "task not found!"));
+            return new Error("Task.NotFound", "task not found!");
         var team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
-        var member = await _unitOfWork.MemberRepository.GetByUserIdWithUser(request.UserId);
-        var resultDoneTask = team.FinishTask(task,member.User.Email.Address);
+        var resultDoneTask = team.FinishTask(task.Id);
         _unitOfWork.TeamRepository.Update(team);
         await _unitOfWork.CommitAsync();
         

@@ -6,9 +6,9 @@ namespace TeamPlan.Domain.BackOffice.Entities;
 
 public class Member : Entity
 {
-    private Member(User user)
+    private Member()
     {
-        User = user;
+      
     }
     private Member(string name, User user)
     {
@@ -23,6 +23,9 @@ public class Member : Entity
     public Guid TeamId { get;private set; }
     public string Role { get;private set; }
     public List<Task> Tasks { get;private set; } = new();
+    
+    public Team? ManagedTeam { get;private set; }
+
 
     public Result AddTeam(Team team, string role)
     {

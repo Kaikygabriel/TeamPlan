@@ -21,7 +21,8 @@ internal class DashBoardTeamHandler : HandlerBase,IRequestHandler<DashBoardTeamR
         if(!TeamContainsMember(team,request.Member))
             return Result<TeamDashBoardDTO>.Failure(new("Member.NotFound.InTeam", "Member Not Found In Team"));
         var emailUsers = team.Members.Select(x => x.User.Email.Address);
-        var response = new TeamDashBoardDTO(emailUsers,team.Manager.User.Email.Address,team.Tasks,team.PercentageByMonthCurrent);
+        var tasksActive = team.Tasks.Where(x => x.Active);
+        var response = new TeamDashBoardDTO(emailUsers,team.Manager.User.Email.Address,tasksActive,team.PercentageByMonthCurrent);
         return Result<TeamDashBoardDTO>.Success(response);
     }
 

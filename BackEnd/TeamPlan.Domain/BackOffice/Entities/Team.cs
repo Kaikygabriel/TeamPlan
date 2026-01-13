@@ -23,8 +23,6 @@ public class Team : Entity
     public List<Member> Members { get; private set; } = new();
     public List<Task> Tasks { get;private set; } = new();
     
-    public List<DoneTask>DoneTasks { get;private set; } = new();
-
     public Enterprise Enterprise { get;private set; }
     public Guid  EnterpriseId { get; set; }
     public ushort PercentageByMonthCurrent { get;private set; }
@@ -32,26 +30,29 @@ public class Team : Entity
     public void AddTask(Task task)
         => Tasks.Add(task);
 
-    public Result FinishTask(Task task,string emailMember)
+    public Result FinishTask(Guid taskId)
     {
-        if (Tasks.Exists(x => x.Id == task.Id))
-            return Result.Failure(new Error("Task.NotFound","Task not found in team"));
-        Tasks.Remove(task);
-        var taskDone = DoneTask.Factory.Create(task, emailMember);
-        if (!taskDone.IsSuccess)
-            return taskDone;
-        DoneTasks.Add(taskDone.Value);
+        var task = Tasks.FirstOrDefault(x => x.Id == taskId);
+        if (task is null)
+            return Result.Failure(new Error("Task.NotFound", "Task not found"));
+
+        task.Finish();
         UpdatePercentage();
+
         return Result.Success();
     }
 
     private void UpdatePercentage()
     {
-        var tasksDoneCount = DoneTasks.Count;
-        var tasksCount = Tasks.Count;
-        if (tasksDoneCount > tasksCount)
-            PercentageByMonthCurrent = 100;
-        PercentageByMonthCurrent =  (ushort)((ushort)(tasksDoneCount * 100) / tasksCount);
+        var total = Tasks.Count;
+        if (total == 0)
+        {
+            PercentageByMonthCurrent = 0;
+            return;
+        }
+
+        var done = Tasks.Count(x => !x.Active);
+        PercentageByMonthCurrent = (ushort)((done * 100) / total);
     }
 
     public void AddMember(Member member)

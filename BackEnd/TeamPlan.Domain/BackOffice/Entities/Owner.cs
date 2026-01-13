@@ -20,6 +20,7 @@ public class Owner : Entity
     public string Name { get;private set; }
     public User User { get;private set; }
     public Enterprise Enterprise  { get;private set; }
+    public Guid EnterpriseId { get; set; }
 
     public void CreateEnterprise(Enterprise enterprise)
     {
