@@ -22,14 +22,16 @@ public class Team : Entity
     public Guid ManagerId { get;private set; }
     public List<Member> Members { get; private set; } = new();
     public List<Task> Tasks { get;private set; } = new();
-    
+    public List<RecurringTask> RecurringTasks { get;private set; } = new();
+
     public Enterprise Enterprise { get;private set; }
     public Guid  EnterpriseId { get; set; }
     public ushort PercentageByMonthCurrent { get;private set; }
 
     public void AddTask(Task task)
         => Tasks.Add(task);
-
+    public void AddRecurringTask(RecurringTask task)
+        => RecurringTasks.Add(task);
     public Result FinishTask(Guid taskId)
     {
         var task = Tasks.FirstOrDefault(x => x.Id == taskId);

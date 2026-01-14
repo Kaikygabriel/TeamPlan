@@ -103,13 +103,13 @@ namespace TeamPlan.Api.Migrations
                         column: x => x.EnterpriseId,
                         principalTable: "Enterprise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Team_Member_ManagerId",
                         column: x => x.ManagerId,
                         principalTable: "Member",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

@@ -26,7 +26,8 @@ public class TeamMap : IEntityTypeConfiguration<Team>
         
         builder.HasOne(x => x.Manager)
             .WithOne(x => x.ManagedTeam)
-            .HasForeignKey<Team>(x=>x.ManagerId);
+            .HasForeignKey<Team>(x=>x.ManagerId)
+            .HasConstraintName("FK_Team_Manager");
         
         builder.HasMany(x => x.Tasks)
             .WithOne(x => x.Team)

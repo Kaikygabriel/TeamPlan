@@ -1,4 +1,3 @@
-using System.Xml.XPath;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
@@ -11,7 +10,7 @@ public class Task: Entity
     {
         
     }
-    public Task(DateTime endDate, string title, string description,Guid teamId)
+    private Task(DateTime endDate, string title, string description,Guid teamId)
     {
         TeamId = teamId;
         EndDate = endDate;
@@ -55,6 +54,8 @@ public class Task: Entity
         
         return Result.Success();
     }
+
+   
     public static class Factories
     {
         public static Result<Task> Create

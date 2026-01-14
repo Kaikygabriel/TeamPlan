@@ -12,7 +12,7 @@ internal class DashBoardEnterpriseHandler : HandlerBase,IRequestHandler<DashBoar
     {
     }
 
-    public async Task<Result<EnterpriseDashBoardDTO>> Handle(DashBoardEnterprise request, CancellationToken cancellationToken)
+    public async Task<Result<EnterpriseDashBoardDTO>> Handle(DashBoardEnterprise request, CancellationToken cancellationToken = default)
     {
         var enterprise = await _unitOfWork.EnterpriseRepository.GetByIdWithTasks(request.EnterpriseId);
         if (enterprise is null)

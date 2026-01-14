@@ -2,6 +2,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Enterprise;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Member;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Owner;
+using TeamPlan.Domain.BackOffice.Interfaces.Repositories.RecurringTask;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Task;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Team;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.User;
@@ -9,6 +10,7 @@ using TeamPlan.Infra.Data.Context;
 using TeamPlan.Infra.Repositories.Enterprise;
 using TeamPlan.Infra.Repositories.Member;
 using TeamPlan.Infra.Repositories.Owner;
+using TeamPlan.Infra.Repositories.RecurringTask;
 using TeamPlan.Infra.Repositories.Task;
 using TeamPlan.Infra.Repositories.Team;
 using TeamPlan.Infra.Repositories.User;
@@ -17,7 +19,8 @@ namespace TeamPlan.Infra.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private IOwnerRepository _ownerRepository;
+    private RecurringTaskRepository _recurringTaskRepository;
+    private OwnerRepository _ownerRepository;
     private MemberRepository _memberRepository;
     private UserRepository _userRepository;
     private TeamRepository _teamRepository;
@@ -75,7 +78,15 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _ownerRepository = _ownerRepository ?? new OwnerRepository(_context);
+            return _ownerRepository = _ownerRepository ?? new (_context);
+        }
+    }
+
+    public IRecurringTaskRepository RecurringTaskRepository
+    {
+        get
+        {
+            return _recurringTaskRepository = _recurringTaskRepository ?? new(_context);
         }
     }
 

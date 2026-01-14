@@ -12,7 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfra();
 builder.Services.AddDbContext<AppDbContext>(x
-    => x.UseSqlServer("Server=localhost,1430;Database=TeamPlan;User ID=sa;Password=Kaiky@2048;TrustServerCertificate=true;",
+    => x.UseSqlServer(builder.Configuration["ConnectionString:DefaultConnection"],
                           x=>x.MigrationsAssembly(typeof(Program).Assembly)));
 var app = builder.Build();
 

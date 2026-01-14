@@ -14,6 +14,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection service,IConfiguration configuration)
     {
+        service.AddHostedService<RecurringTaskService>();
         service.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(HandlerBase).Assembly));
         service.AddScoped<IUserServiceAuth, ServiceUserAuth>();
         service.AddScoped<ITokenService,TokenService>();

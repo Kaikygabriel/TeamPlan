@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TeamPlan.Infra")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e49d866a5bc194c25b89f43086497c0ac0a61b55")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d00acf8b7065d3a126699b6925f78a20ddd1420")]
 [assembly: System.Reflection.AssemblyProductAttribute("TeamPlan.Infra")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TeamPlan.Infra")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
