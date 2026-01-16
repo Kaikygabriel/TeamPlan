@@ -21,6 +21,7 @@ public class Task: Entity
         Active = true;
     }
 
+    public Guid? MemberId { get; set; }
     public Member? Member { get;private set; }
     public DateTime CreateAt { get;private set; }
     public DateTime EndDate { get;private set; }

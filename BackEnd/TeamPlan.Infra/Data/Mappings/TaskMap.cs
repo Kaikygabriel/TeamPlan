@@ -43,7 +43,10 @@ public class TaskMap : IEntityTypeConfiguration<Domain.BackOffice.Entities.Task>
             .IsRequired(true);
 
         builder.HasOne(x => x.Member)
-            .WithMany(x => x.Tasks) ;
+            .WithMany(x => x.Tasks)
+            .HasForeignKey(x=>x.MemberId)
+            .HasConstraintName("FK_Task_Member")
+            .OnDelete(DeleteBehavior.NoAction);
         
     }
 }

@@ -17,7 +17,7 @@ internal class RemoveTeamHandler  : HandlerBase,IRequestHandler<RemoveTeamReques
         if (team is null || team.EnterpriseId != request.EnterpriseId)
             return Result.Failure(new("Team.NotFound","Team not found!"));
         var enterprise = await _unitOfWork.EnterpriseRepository.GetByPredicate(x => x.Id == request.EnterpriseId);
-        if (enterprise.IdOwner != request.OwnerId)
+        if (enterprise is null || enterprise.IdOwner != request.OwnerId)
             return Result.Failure(new("Not.Allowed", "owner not allowed"));
         enterprise.RemoveTeam(team);
         _unitOfWork.TeamRepository.Delete(team);

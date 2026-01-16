@@ -23,11 +23,13 @@ public class Team : Entity
     public List<Member> Members { get; private set; } = new();
     public List<Task> Tasks { get;private set; } = new();
     public List<RecurringTask> RecurringTasks { get;private set; } = new();
-
+    public List<Mark> Marks { get;private set; } = new();
     public Enterprise Enterprise { get;private set; }
     public Guid  EnterpriseId { get; set; }
     public ushort PercentageByMonthCurrent { get;private set; }
 
+    public void AddMark(Mark mark)
+        => Marks.Add(mark);
     public void AddTask(Task task)
         => Tasks.Add(task);
     public void AddRecurringTask(RecurringTask task)
@@ -67,8 +69,10 @@ public class Team : Entity
             return new Error("Member.NotFound", "not found");
         Members.Remove(member);
         return Result.Success();
-    } 
+    }
 
+    public void RemoveRecurringTaskById(RecurringTask recurringTask)
+        => RecurringTasks.Remove(recurringTask);
 
     public static class Factories
     {

@@ -18,7 +18,7 @@ public class Repository<T> : IRepository<T> where T : Entity
     public async Task<T?> GetByPredicate(Expression<Func<T, bool>> predicate)
     {
         return await _context.Set<T>().FirstOrDefaultAsync(predicate);
-    }
+    } 
 
     public void Create(T entity)
     {

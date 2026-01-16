@@ -27,18 +27,25 @@ public class TeamMap : IEntityTypeConfiguration<Team>
         builder.HasOne(x => x.Manager)
             .WithOne(x => x.ManagedTeam)
             .HasForeignKey<Team>(x=>x.ManagerId)
-            .HasConstraintName("FK_Team_Manager");
+            .HasConstraintName("FK_Team_Manager")
+            .OnDelete(DeleteBehavior.NoAction);
         
         builder.HasMany(x => x.Tasks)
             .WithOne(x => x.Team)
-            .HasForeignKey(x => x.TeamId);
+            .HasForeignKey(x => x.TeamId)
+            .HasConstraintName("FK_Task_Team")
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Enterprise)
             .WithMany(x => x.Teams)
-            .HasForeignKey(x => x.EnterpriseId);
+            .HasForeignKey(x => x.EnterpriseId)
+            .HasConstraintName("FK_Team_Enterprise")
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(x => x.Members)
             .WithOne(x => x.Team)
-            .HasForeignKey(x => x.TeamId);
+            .HasForeignKey(x => x.TeamId)
+            .HasConstraintName("FK_Member_Team")
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -22,7 +22,9 @@ internal class DashBoardTeamHandler : HandlerBase,IRequestHandler<DashBoardTeamR
             return Result<TeamDashBoardDTO>.Failure(new("Member.NotFound.InTeam", "Member Not Found In Team"));
         var emailUsers = team.Members.Select(x => x.User.Email.Address);
         var tasksActive = team.Tasks.Where(x => x.Active);
-        var response = new TeamDashBoardDTO(emailUsers,team.Manager.User.Email.Address,tasksActive,team.PercentageByMonthCurrent);
+        var marksInProcess = team.Marks.Where(x => !x.Done);
+        var response = new TeamDashBoardDTO
+            (emailUsers,team.Manager.User.Email.Address,tasksActive,team.PercentageByMonthCurrent,marksInProcess);
         return Result<TeamDashBoardDTO>.Success(response);
     }
 

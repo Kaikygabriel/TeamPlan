@@ -14,10 +14,10 @@ internal class FinishTaskHandler : HandlerBase,IRequestHandler<FinishTaskRequest
     public async Task<Result> Handle(FinishTaskRequest request, CancellationToken cancellationToken)
     {
         var task = await _unitOfWork.TaskRepository.GetByPredicate(x => x.Id == request.IdTask);
-        if (task is null)
+        if (task is null || task.TeamId != request.TeamId)
             return new Error("Task.NotFound", "task not found!");
         var team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
-        var resultDoneTask = team.FinishTask(task.Id);
+        var resultDoneTask = team!.FinishTask(task.Id);
         _unitOfWork.TeamRepository.Update(team);
         await _unitOfWork.CommitAsync();
         

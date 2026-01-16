@@ -45,8 +45,9 @@ internal class RecurringTaskService : BackgroundService,IRecurringTaskService
         foreach (var taskRe in recurringTasks)
         {
             var task = taskRe.CreateTask().Value;
-            taskRe.Team.Tasks.Add(task);
-            unitOfWork.TeamRepository.Update(taskRe.Team);
+            var team = await unitOfWork.TeamRepository.GetByPredicate(x => x.Id == taskRe.Id);
+            team!.AddTask(task);
+            unitOfWork.TeamRepository.Update(team);
         }
 
         await unitOfWork.CommitAsync();

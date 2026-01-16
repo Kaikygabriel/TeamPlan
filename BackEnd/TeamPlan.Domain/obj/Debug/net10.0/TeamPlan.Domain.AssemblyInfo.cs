@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TeamPlan.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d00acf8b7065d3a126699b6925f78a20ddd1420")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3b4369e61920b275554a3c75e9a6732523f1be9")]
 [assembly: System.Reflection.AssemblyProductAttribute("TeamPlan.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TeamPlan.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

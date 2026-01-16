@@ -29,8 +29,7 @@ internal class AddTeamInEnterpriseHandler : HandlerBase,IRequestHandler<AddTeamI
         
         UpdateMemberForManage(manager);
 
-        var resultCreateTeam =await _mediator.Send
-            (new CreateTeamRequest(request.NameTeam, manager, request.EnterpriseId));
+        var resultCreateTeam =CreateTeam(request.NameTeam, manager);
         
         if(!resultCreateTeam.IsSuccess)
             return Result.Failure(resultCreateTeam.Error);
@@ -44,4 +43,14 @@ internal class AddTeamInEnterpriseHandler : HandlerBase,IRequestHandler<AddTeamI
 
     private void UpdateMemberForManage(Member member)
         => member.UpdateRole(Roles.Manager);
+    
+    private Result<Team> CreateTeam(string Name,Member Manage)
+    {
+        var resultCreateTeam = Team.Factories.Create(Name,Manage);
+        if (!resultCreateTeam.IsSuccess)
+            return Result<Team>.Failure(resultCreateTeam.Error);
+                
+        _unitOfWork.TeamRepository.Create(resultCreateTeam.Value);
+        return Result<Team>.Success(resultCreateTeam.Value);
+    }
 }

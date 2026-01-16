@@ -17,10 +17,15 @@ public class OwnerMap : IEntityTypeConfiguration<Owner>
             .HasMaxLength(170)
             .IsRequired(true);
         
-        builder.HasOne(x => x.User);
+        builder.HasOne(x => x.User)
+            .WithOne()
+            .HasForeignKey<Owner>(x=>x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
       
         builder.HasOne(x => x.Enterprise)
             .WithOne(x => x.Owner)
-            .HasForeignKey<Owner>(x=>x.EnterpriseId);
+            .HasForeignKey<Owner>(x=>x.EnterpriseId)
+            .HasConstraintName("FK_Owner_Enterprise")
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

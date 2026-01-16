@@ -16,6 +16,7 @@ public class TeamRepository  : Repository<Domain.BackOffice.Entities.Team>,ITeam
             .Teams
             .Include(x=>x.Members)
             .Include(x=>x.Tasks)
+            .Include(x=>x.Marks)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
