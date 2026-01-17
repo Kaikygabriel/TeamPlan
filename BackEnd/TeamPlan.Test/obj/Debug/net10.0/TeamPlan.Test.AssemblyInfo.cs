@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TeamPlan.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3b4369e61920b275554a3c75e9a6732523f1be9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+433f816078130eb904b7c083c3e89dc601beba70")]
 [assembly: System.Reflection.AssemblyProductAttribute("TeamPlan.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TeamPlan.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

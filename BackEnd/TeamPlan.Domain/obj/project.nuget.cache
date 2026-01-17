@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "J8RaqZN2eUI=",
+  "dgSpecHash": "rkMK4ggD+IQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj",
+  "projectFilePath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\kaiky\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+    "/home/kaiky/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512"
   ],
   "logs": []
 }

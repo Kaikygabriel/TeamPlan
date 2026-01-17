@@ -1,36 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Test\\TeamPlan.Test.csproj": {}
+    "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Test/TeamPlan.Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Api\\TeamPlan.Api.csproj": {
+    "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Api/TeamPlan.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Api\\TeamPlan.Api.csproj",
+        "projectUniqueName": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Api/TeamPlan.Api.csproj",
         "projectName": "TeamPlan.Api",
-        "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Api\\TeamPlan.Api.csproj",
-        "packagesPath": "C:\\Users\\kaiky\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Api\\obj\\",
+        "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Api/TeamPlan.Api.csproj",
+        "packagesPath": "/home/kaiky/.nuget/packages/",
+        "outputPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kaiky\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/kaiky/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Application\\TeamPlan.Application.csproj": {
-                "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Application\\TeamPlan.Application.csproj"
+              "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Application/TeamPlan.Application.csproj": {
+                "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Application/TeamPlan.Application.csproj"
               },
-              "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Infra\\TeamPlan.Infra.csproj": {
-                "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Infra\\TeamPlan.Infra.csproj"
+              "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Infra/TeamPlan.Infra.csproj": {
+                "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Infra/TeamPlan.Infra.csproj"
               }
             }
           }
@@ -85,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -503,30 +504,31 @@
         }
       }
     },
-    "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Application\\TeamPlan.Application.csproj": {
+    "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Application/TeamPlan.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Application\\TeamPlan.Application.csproj",
+        "projectUniqueName": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Application/TeamPlan.Application.csproj",
         "projectName": "TeamPlan.Application",
-        "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Application\\TeamPlan.Application.csproj",
-        "packagesPath": "C:\\Users\\kaiky\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Application\\obj\\",
+        "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Application/TeamPlan.Application.csproj",
+        "packagesPath": "/home/kaiky/.nuget/packages/",
+        "outputPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kaiky\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/kaiky/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj": {
-                "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj"
+              "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj": {
+                "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj"
               }
             }
           }
@@ -580,7 +582,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -858,22 +860,23 @@
         }
       }
     },
-    "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj": {
+    "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj",
+        "projectUniqueName": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj",
         "projectName": "TeamPlan.Domain",
-        "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj",
-        "packagesPath": "C:\\Users\\kaiky\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\obj\\",
+        "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj",
+        "packagesPath": "/home/kaiky/.nuget/packages/",
+        "outputPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kaiky\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/kaiky/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -919,7 +922,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1197,30 +1200,31 @@
         }
       }
     },
-    "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Infra\\TeamPlan.Infra.csproj": {
+    "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Infra/TeamPlan.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Infra\\TeamPlan.Infra.csproj",
+        "projectUniqueName": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Infra/TeamPlan.Infra.csproj",
         "projectName": "TeamPlan.Infra",
-        "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Infra\\TeamPlan.Infra.csproj",
-        "packagesPath": "C:\\Users\\kaiky\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Infra\\obj\\",
+        "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Infra/TeamPlan.Infra.csproj",
+        "packagesPath": "/home/kaiky/.nuget/packages/",
+        "outputPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Infra/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kaiky\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/kaiky/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj": {
-                "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Domain\\TeamPlan.Domain.csproj"
+              "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj": {
+                "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Domain/TeamPlan.Domain.csproj"
               }
             }
           }
@@ -1266,7 +1270,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1544,30 +1548,31 @@
         }
       }
     },
-    "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Test\\TeamPlan.Test.csproj": {
+    "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Test/TeamPlan.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Test\\TeamPlan.Test.csproj",
+        "projectUniqueName": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Test/TeamPlan.Test.csproj",
         "projectName": "TeamPlan.Test",
-        "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Test\\TeamPlan.Test.csproj",
-        "packagesPath": "C:\\Users\\kaiky\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Test\\obj\\",
+        "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Test/TeamPlan.Test.csproj",
+        "packagesPath": "/home/kaiky/.nuget/packages/",
+        "outputPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kaiky\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/kaiky/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Api\\TeamPlan.Api.csproj": {
-                "projectPath": "C:\\Users\\kaiky\\Downloads\\kaka\\C#\\ProjetosPortifolio\\TeamPlan\\TeamPlan\\BackEnd\\TeamPlan.Api\\TeamPlan.Api.csproj"
+              "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Api/TeamPlan.Api.csproj": {
+                "projectPath": "/home/kaiky/Downloads/kaka/c#/Portifolio/TeamPlan/BackEnd/TeamPlan.Api/TeamPlan.Api.csproj"
               }
             }
           }
@@ -1621,7 +1626,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
