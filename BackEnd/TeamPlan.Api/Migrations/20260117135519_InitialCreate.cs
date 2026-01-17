@@ -69,12 +69,13 @@ namespace TeamPlan.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "VARCHAR(120)", maxLength: 120, nullable: false),
                     Descriptor = table.Column<string>(type: "VARCHAR(180)", maxLength: 180, nullable: false),
-                    Percentage = table.Column<byte>(type: "TINYINT", nullable: false, defaultValue: (byte)0),
                     TaskCount = table.Column<short>(type: "SMALLINT", nullable: false, defaultValue: (short)0),
                     TaskCountDone = table.Column<short>(type: "SMALLINT", nullable: false, defaultValue: (short)0),
-                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Percentage = table.Column<byte>(type: "TINYINT", nullable: false, defaultValue: (byte)0),
+                    Done = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

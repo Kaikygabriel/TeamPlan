@@ -12,7 +12,7 @@ using TeamPlan.Infra.Data.Context;
 namespace TeamPlan.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260116145106_InitialCreate")]
+    [Migration("20260117135519_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -56,6 +56,9 @@ namespace TeamPlan.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(180)
                         .HasColumnType("VARCHAR");
+
+                    b.Property<bool>("Done")
+                        .HasColumnType("bit");
 
                     b.Property<byte>("Percentage")
                         .ValueGeneratedOnAdd()

@@ -14,10 +14,14 @@ builder.Services.AddInfra();
 builder.Services.AddDbContext<AppDbContext>(x
     => x.UseSqlServer(builder.Configuration["ConnectionString:DefaultConnection"],
                           x=>x.MigrationsAssembly(typeof(Program).Assembly)));
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.MapOpenApi();
 }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamPlan.Infra.Data.Context;
 
@@ -11,9 +12,11 @@ using TeamPlan.Infra.Data.Context;
 namespace TeamPlan.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260117140158_InitialCreate.2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,7 +127,7 @@ namespace TeamPlan.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EnterpriseId")
+                    b.Property<Guid>("EnterpriseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -138,8 +141,7 @@ namespace TeamPlan.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EnterpriseId")
-                        .IsUnique()
-                        .HasFilter("[EnterpriseId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -318,6 +320,7 @@ namespace TeamPlan.Api.Migrations
                         .WithOne("Owner")
                         .HasForeignKey("TeamPlan.Domain.BackOffice.Entities.Owner", "EnterpriseId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("FK_Owner_Enterprise");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.User", "User")
