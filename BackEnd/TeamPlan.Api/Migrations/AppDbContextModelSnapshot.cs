@@ -36,6 +36,7 @@ namespace TeamPlan.Api.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(80)
                         .HasColumnType("NVARCHAR");
 
                     b.HasKey("Id");
@@ -93,6 +94,9 @@ namespace TeamPlan.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ManagedTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(180)
@@ -103,13 +107,15 @@ namespace TeamPlan.Api.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<Guid>("TeamId")
+                    b.Property<Guid?>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagedTeamId");
 
                     b.HasIndex("TeamId");
 
@@ -294,11 +300,14 @@ namespace TeamPlan.Api.Migrations
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Member", b =>
                 {
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Team", "ManagedTeam")
+                        .WithMany()
+                        .HasForeignKey("ManagedTeamId");
+
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Team", "Team")
                         .WithMany("Members")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("FK_Member_Team");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.User", "User")
@@ -306,6 +315,8 @@ namespace TeamPlan.Api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ManagedTeam");
 
                     b.Navigation("Team");
 
@@ -355,8 +366,7 @@ namespace TeamPlan.Api.Migrations
                         .WithMany("Tasks")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Task_Team");
+                        .IsRequired();
 
                     b.Navigation("Member");
 
@@ -373,10 +383,9 @@ namespace TeamPlan.Api.Migrations
                         .HasConstraintName("FK_Team_Enterprise");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Member", "Manager")
-                        .WithOne("ManagedTeam")
+                        .WithOne()
                         .HasForeignKey("TeamPlan.Domain.BackOffice.Entities.Team", "ManagerId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("FK_Team_Manager");
 
                     b.Navigation("Enterprise");
@@ -422,8 +431,6 @@ namespace TeamPlan.Api.Migrations
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Member", b =>
                 {
-                    b.Navigation("ManagedTeam");
-
                     b.Navigation("Tasks");
                 });
 

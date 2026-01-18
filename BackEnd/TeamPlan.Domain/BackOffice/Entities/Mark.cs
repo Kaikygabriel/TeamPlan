@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
 
@@ -17,7 +18,7 @@ public class Mark : Entity
         TaskCount = taskCount;
         TeamId = teamId;
     }
-
+    [JsonIgnore]
     public Team Team { get;private set; }
     public Guid TeamId { get;private set; }
     public string Title { get;private set; }

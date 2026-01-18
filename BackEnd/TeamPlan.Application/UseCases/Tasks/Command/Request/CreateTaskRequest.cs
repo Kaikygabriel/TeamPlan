@@ -10,8 +10,11 @@ public record CreateTaskRequest(CreateTaskDto CreateTaskDto ,Guid? MemberId)
     : IRequest<Result>
 {
     public Result<Task> ToEntity()
-        => Task.Factories.Create(CreateTaskDto.EndDate, 
+        => Task.Factories.Create
+        (
+            CreateTaskDto.EndDate, 
             CreateTaskDto.Title,
             CreateTaskDto.Description,
-            CreateTaskDto.TeamId);
+            CreateTaskDto.TeamId
+        );
 }

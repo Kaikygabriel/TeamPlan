@@ -16,7 +16,7 @@ namespace TeamPlan.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "NVARCHAR", nullable: false),
+                    Name = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
                     CreateAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     IdOwner = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -45,7 +45,7 @@ namespace TeamPlan.Api.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(170)", maxLength: 170, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EnterpriseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    EnterpriseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,7 +90,8 @@ namespace TeamPlan.Api.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(180)", maxLength: 180, nullable: false),
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Role = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false)
+                    Role = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
+                    ManagedTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -174,7 +175,7 @@ namespace TeamPlan.Api.Migrations
                         principalTable: "Member",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Task_Team",
+                        name: "FK_Task_Team_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Team",
                         principalColumn: "Id",
@@ -185,6 +186,11 @@ namespace TeamPlan.Api.Migrations
                 name: "IX_Mark_TeamId",
                 table: "Mark",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Member_ManagedTeamId",
+                table: "Member",
+                column: "ManagedTeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Member_TeamId",
@@ -200,7 +206,8 @@ namespace TeamPlan.Api.Migrations
                 name: "IX_Owner_EnterpriseId",
                 table: "Owner",
                 column: "EnterpriseId",
-                unique: true);
+                unique: true,
+                filter: "[EnterpriseId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Owner_UserId",
@@ -234,6 +241,12 @@ namespace TeamPlan.Api.Migrations
                 column: "ManagerId",
                 unique: true);
 
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Mark_Team",
                 table: "Mark",
@@ -248,6 +261,13 @@ namespace TeamPlan.Api.Migrations
                 column: "TeamId",
                 principalTable: "Team",
                 principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Member_Team_ManagedTeamId",
+                table: "Member",
+                column: "ManagedTeamId",
+                principalTable: "Team",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
@@ -255,6 +275,10 @@ namespace TeamPlan.Api.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Member_Team",
+                table: "Member");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Member_Team_ManagedTeamId",
                 table: "Member");
 
             migrationBuilder.DropTable(

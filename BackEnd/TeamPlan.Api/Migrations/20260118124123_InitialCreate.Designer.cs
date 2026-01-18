@@ -12,7 +12,7 @@ using TeamPlan.Infra.Data.Context;
 namespace TeamPlan.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260117135519_InitialCreate")]
+    [Migration("20260118124123_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,6 +39,7 @@ namespace TeamPlan.Api.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(80)
                         .HasColumnType("NVARCHAR");
 
                     b.HasKey("Id");
@@ -96,6 +97,9 @@ namespace TeamPlan.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ManagedTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(180)
@@ -114,6 +118,8 @@ namespace TeamPlan.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ManagedTeamId");
+
                     b.HasIndex("TeamId");
 
                     b.HasIndex("UserId");
@@ -127,7 +133,7 @@ namespace TeamPlan.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EnterpriseId")
+                    b.Property<Guid?>("EnterpriseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -141,7 +147,8 @@ namespace TeamPlan.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EnterpriseId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[EnterpriseId] IS NOT NULL");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -271,12 +278,6 @@ namespace TeamPlan.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(180)
-                        .HasColumnType("NVARCHAR")
-                        .HasColumnName("Email");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -302,6 +303,10 @@ namespace TeamPlan.Api.Migrations
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Member", b =>
                 {
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Team", "ManagedTeam")
+                        .WithMany()
+                        .HasForeignKey("ManagedTeamId");
+
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Team", "Team")
                         .WithMany("Members")
                         .HasForeignKey("TeamId")
@@ -315,6 +320,8 @@ namespace TeamPlan.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("ManagedTeam");
+
                     b.Navigation("Team");
 
                     b.Navigation("User");
@@ -326,7 +333,6 @@ namespace TeamPlan.Api.Migrations
                         .WithOne("Owner")
                         .HasForeignKey("TeamPlan.Domain.BackOffice.Entities.Owner", "EnterpriseId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_Owner_Enterprise");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.User", "User")
@@ -364,8 +370,7 @@ namespace TeamPlan.Api.Migrations
                         .WithMany("Tasks")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Task_Team");
+                        .IsRequired();
 
                     b.Navigation("Member");
 
@@ -382,15 +387,42 @@ namespace TeamPlan.Api.Migrations
                         .HasConstraintName("FK_Team_Enterprise");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Member", "Manager")
-                        .WithOne("ManagedTeam")
+                        .WithOne()
                         .HasForeignKey("TeamPlan.Domain.BackOffice.Entities.Team", "ManagerId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("FK_Team_Manager");
 
                     b.Navigation("Enterprise");
 
                     b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.User", b =>
+                {
+                    b.OwnsOne("TeamPlan.Domain.BackOffice.ValueObject.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Address")
+                                .IsRequired()
+                                .HasMaxLength(180)
+                                .HasColumnType("NVARCHAR")
+                                .HasColumnName("Email");
+
+                            b1.HasKey("UserId");
+
+                            b1.HasIndex("Address")
+                                .IsUnique();
+
+                            b1.ToTable("User");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.Navigation("Email")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Enterprise", b =>
@@ -403,8 +435,6 @@ namespace TeamPlan.Api.Migrations
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Member", b =>
                 {
-                    b.Navigation("ManagedTeam");
-
                     b.Navigation("Tasks");
                 });
 

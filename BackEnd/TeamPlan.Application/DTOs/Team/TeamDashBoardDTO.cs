@@ -9,5 +9,5 @@ public record TeamDashBoardDTO
         string EmailManager,
         IEnumerable<Domain.BackOffice.Entities.Task> Task,
         ushort Percentage,
-        IEnumerable<Mark>Marks
+        IEnumerable<Mark>  Marks
     );

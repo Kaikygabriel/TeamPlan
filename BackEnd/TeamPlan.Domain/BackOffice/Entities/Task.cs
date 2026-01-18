@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
@@ -29,8 +30,9 @@ public class Task: Entity
     public string Title { get;private set; }
     public  string Description { get;private set; }
     public bool Active { get;private set; }
-    public Guid TeamId { get; set; }
-    public Team Team { get; set; }
+    public Guid TeamId { get;private set; }
+    [JsonIgnore]
+    public Team Team { get;private set; }
 
     public Result AddMember(Member member)
     {

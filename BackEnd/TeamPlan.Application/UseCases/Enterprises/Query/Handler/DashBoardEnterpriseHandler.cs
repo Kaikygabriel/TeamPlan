@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Enterprises.Query.Handler;
 
-internal class DashBoardEnterpriseHandler : HandlerBase,IRequestHandler<DashBoardEnterprise,Result<EnterpriseDashBoardDTO>>
+internal class  DashBoardEnterpriseHandler : HandlerBase,IRequestHandler<DashBoardEnterprise,Result<EnterpriseDashBoardDTO>>
 {
     public DashBoardEnterpriseHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
@@ -21,7 +21,9 @@ internal class DashBoardEnterpriseHandler : HandlerBase,IRequestHandler<DashBoar
             return Result<EnterpriseDashBoardDTO>.Failure(new("Owner.NotFound", "Not found!"));
 
         var percentageTeams = enterprise.Teams.Select(x => x.PercentageByMonthCurrent);
-        var percentageAverageEnterprise = (ushort)percentageTeams.Average(x=>x);
+        ushort percentageAverageEnterprise = 0;
+        if(percentageTeams.Count() > 0)
+            percentageAverageEnterprise = (ushort)percentageTeams?.Average(x=>x);
 
         var teamsInOrder = enterprise.Teams.OrderBy(x => x.PercentageByMonthCurrent);
         return Result<EnterpriseDashBoardDTO>.Success

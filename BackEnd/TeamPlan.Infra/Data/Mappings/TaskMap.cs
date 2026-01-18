@@ -35,11 +35,13 @@ public class TaskMap : IEntityTypeConfiguration<Domain.BackOffice.Entities.Task>
         builder.Property(x => x.Description)
             .HasColumnName("Description")
             .HasColumnType("NVARCHAR")
+            .HasMaxLength(200)
             .IsRequired(true);
         
         builder.Property(x => x.Title)
             .HasColumnName("Title")
             .HasColumnType("NVARCHAR")
+            .HasMaxLength(150)
             .IsRequired(true);
 
         builder.HasOne(x => x.Member)

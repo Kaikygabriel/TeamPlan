@@ -23,26 +23,29 @@ internal class AddTeamInEnterpriseHandler : HandlerBase,IRequestHandler<AddTeamI
         if (enterprise is null || enterprise.IdOwner != request.OwnerId)
             return Result.Failure(new("Enterprise.IsInvalid", "Enterprise or owner is invalid!"));
         
-        var manager = await _unitOfWork.MemberRepository.GetByPredicate(x => x.Id == request.ManageId);
+        var manager = await _unitOfWork.MemberRepository.GetByEmail(request.EmailManager);
         if(manager is null)
             return Result.Failure(new("Manege.NotFound", "Manege no Not Found!"));
         
-        UpdateMemberForManage(manager);
 
         var resultCreateTeam =CreateTeam(request.NameTeam, manager);
         
         if(!resultCreateTeam.IsSuccess)
             return Result.Failure(resultCreateTeam.Error);
 
-        enterprise.AddTeam(resultCreateTeam.Value);
-        _unitOfWork.EnterpriseRepository.Update(enterprise);
+        var team = resultCreateTeam.Value;
 
+        UpdateMemberForManage(manager,team);
+
+        enterprise.AddTeam(team);
+        _unitOfWork.EnterpriseRepository.Update(enterprise);
+        
         await _unitOfWork.CommitAsync();
         return Result.Success();
     }
 
-    private void UpdateMemberForManage(Member member)
-        => member.UpdateRole(Roles.Manager);
+    private void UpdateMemberForManage(Member member,Team team)
+            => member.UpdateForManager(team);
     
     private Result<Team> CreateTeam(string Name,Member Manage)
     {

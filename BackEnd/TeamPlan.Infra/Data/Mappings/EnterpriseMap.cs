@@ -14,6 +14,7 @@ public class EnterpriseMap : IEntityTypeConfiguration<Enterprise>
 
         builder.Property(x => x.Name)
             .HasColumnType("NVARCHAR")
+            .HasMaxLength(80)
             .IsRequired(true);
         
         builder.Property(x=>x.CreateAt)

@@ -21,7 +21,7 @@ internal class RegisterMemberHandler : HandlerBaseMemberAuth,IRequestHandler<Reg
             return Result<AuthMemberResponse>.Failure(resultMemberCreate.Error);
         
         var member = resultMemberCreate.Value;
-        if (await _unitOfWork.UserRepository.GetUserExistsByEmail(member.User.Email.Address))
+        if (!await _unitOfWork.UserRepository.GetUserExistsByEmail(member.User.Email.Address))
             return Result<AuthMemberResponse>.Failure(new("user.exists", "user already exists!"));
         
         var token = GenerateAcessTokenByMember(member);

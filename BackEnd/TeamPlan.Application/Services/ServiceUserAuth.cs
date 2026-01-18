@@ -20,7 +20,8 @@ internal class ServiceUserAuth:  IUserServiceAuth
         var user = await GetUserByEmail(email);
         if (user is null)
             return Result<User>.Failure(new("User.NoExists", "User no exists !"));
-        if(!VerifyPassword(user,password))
+        var result = VerifyPassword(user, password);
+        if(!result)
             return Result<User>.Failure(new("Password.Invalid", "Password is invalid !"));
         
         return Result<User>.Success(user);
@@ -30,5 +31,5 @@ internal class ServiceUserAuth:  IUserServiceAuth
         => await _unitOfWork.UserRepository.GetByPredicate(x => x.Email.Address == email);
 
     private bool VerifyPassword(User user, string password)
-        => BCrypt.Net.BCrypt.Verify(password, user.Password.PasswordHash);
+        => BCrypt.Net.BCrypt.Verify(password,user.Password.PasswordHash);
 }

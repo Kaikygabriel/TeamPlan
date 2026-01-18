@@ -13,6 +13,7 @@ public class Enterprise: Entity
     {
         Name = name;
         Owner = owner;
+        IdOwner = owner.Id;
         CreateAt = DateTime.Now;
         Id = Guid.NewGuid();
     }

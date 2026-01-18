@@ -22,7 +22,7 @@ internal class RegisterOwnerHandler : HandlerBaseOwnerAuth,IRequestHandler<Regis
             return Result<OwnerAuthResponse>.Failure(resultCreateOwner.Error);
         
         var owner = resultCreateOwner.Value;
-        if (await _unitOfWork.UserRepository.GetUserExistsByEmail(owner.User.Email.Address))
+        if (!await _unitOfWork.UserRepository.GetUserExistsByEmail(owner.User.Email.Address))
             return Result<OwnerAuthResponse>.Failure(new("user.exists", "user already exists!"));
         
         _unitOfWork.OwnerRepository.Create(owner);

@@ -25,6 +25,7 @@ public class CreateMarkHandler : HandlerBase,IRequestHandler<CreateMarkRequest,R
         
         team.AddMark(mark);
         _unitOfWork.TeamRepository.Update(team);
+        _unitOfWork.MarkRepository.Create(mark);
         await _unitOfWork.CommitAsync();
         return Result.Success();
     }

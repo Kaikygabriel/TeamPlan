@@ -14,6 +14,7 @@ public class TeamRepository  : Repository<Domain.BackOffice.Entities.Team>,ITeam
     {
         return await _context
             .Teams
+            .Include(x=>x.Manager)
             .Include(x=>x.Members)
             .Include(x=>x.Tasks)
             .Include(x=>x.Marks)

@@ -21,6 +21,6 @@ public class MemberMap : IEntityTypeConfiguration<Member>
             .HasColumnType("VARCHAR")
             .HasMaxLength(100)
             .IsRequired(true);
-            
+       
     }
 }

@@ -15,13 +15,14 @@ public class Member : Entity
         Name = name;
         User = user;
         Id = Guid.NewGuid();
+        Role = Roles.Member;
     }
 
     public User User { get; set; }
     public string Name { get;private set; }
-    public Team Team { get;private set; }
-    public Guid TeamId { get;private set; }
-    public string Role { get;private set; }
+    public Team? Team { get;private set; }
+    public Guid? TeamId { get;private set; }
+    public string Role { get;private set; } 
     public List<Task> Tasks { get;private set; } = new();
     
     public Team? ManagedTeam { get;private set; }
@@ -34,8 +35,12 @@ public class Member : Entity
         return Result.Success();
     }
 
-    public void UpdateRole(string role)
-        => Role = role;
+    public void UpdateForManager(Team team)
+    {
+        Team = team;
+        TeamId = team.Id;
+        Role = Roles.Manager;
+    } 
     public static class Factories
     {
         public static Result<Member> Create(string name,User user)

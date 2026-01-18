@@ -1,6 +1,7 @@
 using MediatR;
+using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 
 namespace TeamPlan.Application.UseCases.Enterprises.Command.Request;
 
-public record CreateEnterpriseRequest(string Name,Guid OwnerId): IRequest<Result>;
+public record CreateEnterpriseRequest(string Name,Guid OwnerId): IRequest<Result<Guid>>;

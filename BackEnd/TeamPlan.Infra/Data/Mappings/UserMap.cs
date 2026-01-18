@@ -12,19 +12,23 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.ToTable("User");
 
         builder.HasKey(x => x.Id);
-
-        builder.Property(x => x.Email)
-            .HasConversion(x => x.Address, x => Email.Factories.Create(x).Value)
-            .HasMaxLength(180)
-            .HasColumnType("NVARCHAR")
-            .HasColumnName("Email")
-            .IsRequired(true);
+        
+        builder.OwnsOne(x => x.Email, x =>
+        {
+            x.Property(x => x.Address)
+                .HasMaxLength(180)
+                .HasColumnType("NVARCHAR")
+                .HasColumnName("Email")
+                .IsRequired(true);
+            x.HasIndex(e => e.Address).IsUnique(); 
+        });
         
         builder.Property(x => x.Password)
-            .HasConversion(x => x.PasswordHash, x => Password.Factory.Create(x).Value)
+            .HasConversion(x => x.PasswordHash, x => Password.Factory.CreateWithPasswordHashAlready(x).Value)
             .HasMaxLength(100)
             .HasColumnType("NVARCHAR")
             .HasColumnName("Password")
             .IsRequired(true);
+
     }
 }

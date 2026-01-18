@@ -26,6 +26,7 @@ public class OwnerMap : IEntityTypeConfiguration<Owner>
             .WithOne(x => x.Owner)
             .HasForeignKey<Owner>(x=>x.EnterpriseId)
             .HasConstraintName("FK_Owner_Enterprise")
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
     }
 }

@@ -1,4 +1,5 @@
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Enterprise;
+using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Mark;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Member;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Owner;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.RecurringTask;
@@ -17,5 +18,7 @@ public interface IUnitOfWork
     public IMemberRepository MemberRepository { get;}
     public IOwnerRepository OwnerRepository{ get;}
     public IRecurringTaskRepository RecurringTaskRepository { get; }
+    public IMarkRepository MarkRepository { get;  }
+
     System.Threading.Tasks.Task CommitAsync();
 }

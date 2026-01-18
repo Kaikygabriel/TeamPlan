@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
@@ -14,6 +15,7 @@ public class Team : Entity
     {
         Name = name;
         Manager = manager;
+        ManagerId = manager.Id;
         Id = Guid.NewGuid();
     }
 
@@ -24,6 +26,7 @@ public class Team : Entity
     public List<Task> Tasks { get;private set; } = new();
     public List<RecurringTask> RecurringTasks { get;private set; } = new();
     public List<Mark> Marks { get;private set; } = new();
+    [JsonIgnore]
     public Enterprise Enterprise { get;private set; }
     public Guid  EnterpriseId { get; set; }
     public ushort PercentageByMonthCurrent { get;private set; }
@@ -32,8 +35,12 @@ public class Team : Entity
         => Marks.Add(mark);
     public void AddTask(Task task)
         => Tasks.Add(task);
+
     public void AddRecurringTask(RecurringTask task)
-        => RecurringTasks.Add(task);
+    {
+        RecurringTasks.Add(task);
+        UpdatePercentage();
+    } 
     public Result FinishTask(Guid taskId)
     {
         var task = Tasks.FirstOrDefault(x => x.Id == taskId);
@@ -42,7 +49,8 @@ public class Team : Entity
 
         task.Finish();
         UpdatePercentage();
-
+        UpdateMarks();
+        
         return Result.Success();
     }
 
@@ -59,6 +67,15 @@ public class Team : Entity
         PercentageByMonthCurrent = (ushort)((done * 100) / total);
     }
 
+    public void UpdateMarks()
+    {
+        foreach (var mark in Marks)
+        {
+            if(!mark.Done)
+                mark.OneTaskCompleted();
+        }
+    }
+    
     public void AddMember(Member member)
         => Members.Add(member);
     
