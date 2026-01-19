@@ -14,7 +14,6 @@ public class EnterpriseRepository : Repository<Domain.BackOffice.Entities.Enterp
     {
         return await _context.Enterprises
             .Include(x=>x.Teams)
-                .ThenInclude(x=>x.Tasks)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 }

@@ -169,6 +169,10 @@ namespace TeamPlan.Api.Migrations
                         .HasMaxLength(180)
                         .HasColumnType("NVARCHAR");
 
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
@@ -202,6 +206,7 @@ namespace TeamPlan.Api.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Description");
 
@@ -218,11 +223,17 @@ namespace TeamPlan.Api.Migrations
                         .HasDefaultValue((byte)0)
                         .HasColumnName("Percentage");
 
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("VARCHAR");
+
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(150)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Title");
 
@@ -386,6 +397,7 @@ namespace TeamPlan.Api.Migrations
                         .WithOne()
                         .HasForeignKey("TeamPlan.Domain.BackOffice.Entities.Team", "ManagerId")
                         .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
                         .HasConstraintName("FK_Team_Manager");
 
                     b.Navigation("Enterprise");

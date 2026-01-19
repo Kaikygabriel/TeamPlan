@@ -31,6 +31,12 @@ public class TeamsController : ControllerBase
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
+    [HttpGet("ReportByMonth")]
+    public async Task<ActionResult> ReportByMonth([FromQuery]GetReportByMonthRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
     [HttpPost("AddMemberInTeam")]
     public async Task<ActionResult> AddMemberInTeam(AddMemberInTeamRequest request)
     {
@@ -64,6 +70,12 @@ public class TeamsController : ControllerBase
 
     [HttpDelete("RemoveMember")]
     public async Task<ActionResult> RemoveMember([FromQuery] RemoveMemberInTeamRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Ok(): BadRequest(result.Error);
+    }
+    [HttpDelete("RemoveRecurringTask")]
+    public async Task<ActionResult> RemoveRecurringTask([FromQuery] RemoveRecurringTaskRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(): BadRequest(result.Error);

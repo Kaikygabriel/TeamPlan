@@ -32,10 +32,10 @@ public class TeamMap : IEntityTypeConfiguration<Team>
             .OnDelete(DeleteBehavior.NoAction);
         
         builder.HasOne(x => x.Manager)
-            .WithOne() // DEIXE VAZIO! Não aponte para x.Team aqui
+            .WithOne()
             .HasForeignKey<Team>(x => x.ManagerId)
             .HasConstraintName("FK_Team_Manager")
-            .IsRequired(false)
+            .IsRequired(true)
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Enterprise)
@@ -45,7 +45,7 @@ public class TeamMap : IEntityTypeConfiguration<Team>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(x => x.Members)
-            .WithOne(x => x.Team) // Member.Team agora pertence exclusivamente a este relacionamento
+            .WithOne(x => x.Team) 
             .HasForeignKey(x => x.TeamId)
             .HasConstraintName("FK_Member_Team")
             .IsRequired(false)

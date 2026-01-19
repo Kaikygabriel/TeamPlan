@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
@@ -18,13 +19,15 @@ public class Member : Entity
         Role = Roles.Member;
     }
 
-    public User User { get; set; }
+    public User User { get; init; }
     public string Name { get;private set; }
+    [JsonIgnore]
     public Team? Team { get;private set; }
     public Guid? TeamId { get;private set; }
     public string Role { get;private set; } 
+    [JsonIgnore]
     public List<Task> Tasks { get;private set; } = new();
-    
+    [JsonIgnore]
     public Team? ManagedTeam { get;private set; }
 
 

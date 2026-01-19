@@ -18,10 +18,10 @@ public class Enterprise: Entity
         Id = Guid.NewGuid();
     }
 
-    public string Name { get; private set; }
+    public string Name { get; init; }
     public DateTime CreateAt { get; private set; }
-    public Owner Owner { get; private set; }
-    public Guid IdOwner { get;private set; }
+    public Owner Owner { get; init; }
+    public Guid IdOwner { get;init; }
     public List<Team> Teams { get; private set; } = new();
 
     public void AddTeam(Team team)

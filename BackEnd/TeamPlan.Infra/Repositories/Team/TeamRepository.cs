@@ -14,6 +14,8 @@ public class TeamRepository  : Repository<Domain.BackOffice.Entities.Team>,ITeam
     {
         return await _context
             .Teams
+            .Include(x => x.Enterprise)
+
             .Include(x=>x.Manager)
             .Include(x=>x.Members)
             .Include(x=>x.Tasks)
@@ -27,5 +29,13 @@ public class TeamRepository  : Repository<Domain.BackOffice.Entities.Team>,ITeam
             .Teams
             .Include(x=>x.Members)
             .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<IEnumerable<Domain.BackOffice.Entities.Task>> GetTasksInMonthByTaskId(Guid id)
+    {
+        return await _context.Tasks.AsNoTracking()
+            .Where(x => x.TeamId == id && x.CreateAt <= DateTime.Now.AddMonths(-1))
+            .OrderBy(x=>x.Priority)
+            .ToListAsync();
     }
 }

@@ -18,7 +18,7 @@ public class User : Entity
         Id = Guid.NewGuid();
     }
 
-    public Email Email { get;private set; }
+    public Email Email { get;init; }
     public Password Password { get;private set; }
 
     public Result AlterPassword(string password)

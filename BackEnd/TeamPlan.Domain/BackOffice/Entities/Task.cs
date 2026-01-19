@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
+using TeamPlan.Domain.BackOffice.Enum;
 
 namespace TeamPlan.Domain.BackOffice.Entities;
 
@@ -11,7 +12,7 @@ public class Task: Entity
     {
         
     }
-    private Task(DateTime endDate, string title, string description,Guid teamId)
+    private Task(DateTime endDate, string title, string description,Guid teamId,EPriority priority)
     {
         TeamId = teamId;
         EndDate = endDate;
@@ -20,20 +21,23 @@ public class Task: Entity
         CreateAt = DateTime.Now;
         Id = Guid.NewGuid();
         Active = true;
+        Priority = priority;
     }
 
-    public Guid? MemberId { get; set; }
+    public Guid? MemberId { get;private set; }
     public Member? Member { get;private set; }
-    public DateTime CreateAt { get;private set; }
-    public DateTime EndDate { get;private set; }
+    public DateTime CreateAt { get; init; }
+    public DateTime EndDate { get;init; }
     public ushort Percentage { get;private set; }
-    public string Title { get;private set; }
-    public  string Description { get;private set; }
+    public string Title { get;init; }
+    public  string Description { get;init; }
     public bool Active { get;private set; }
     public Guid TeamId { get;private set; }
     [JsonIgnore]
     public Team Team { get;private set; }
-
+    
+    public EPriority Priority { get;init; }
+    
     public Result AddMember(Member member)
     {
         if (member.TeamId != TeamId)
@@ -62,9 +66,9 @@ public class Task: Entity
     public static class Factories
     {
         public static Result<Task> Create
-            (DateTime endDate, string title, string description,Guid teamId)
+            (DateTime endDate, string title, string description,Guid teamId,EPriority priority)
         {
-            return Result<Task>.Success(new(endDate, title, description,teamId));
+            return Result<Task>.Success(new(endDate, title, description,teamId,priority));
         }
     }
     

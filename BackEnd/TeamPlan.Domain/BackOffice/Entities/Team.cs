@@ -20,6 +20,7 @@ public class Team : Entity
     }
 
     public string Name { get;private set; }
+    [JsonIgnore]
     public Member Manager { get;private set; }
     public Guid ManagerId { get;private set; }
     public List<Member> Members { get; private set; } = new();
@@ -28,7 +29,7 @@ public class Team : Entity
     public List<Mark> Marks { get;private set; } = new();
     [JsonIgnore]
     public Enterprise Enterprise { get;private set; }
-    public Guid  EnterpriseId { get; set; }
+    public Guid  EnterpriseId { get; init; }
     public ushort PercentageByMonthCurrent { get;private set; }
 
     public void AddMark(Mark mark)

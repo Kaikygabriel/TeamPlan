@@ -19,7 +19,7 @@ public class Owner : Entity
 
     public string Name { get;private set; }
     public Guid UserId { get; set; }
-    public User User { get;private set; }
+    public User User { get;init; }
     public Enterprise? Enterprise  { get;private set; }
     public Guid? EnterpriseId { get; set; }
 

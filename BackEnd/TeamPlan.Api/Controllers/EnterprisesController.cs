@@ -34,4 +34,10 @@ public class EnterprisesController : ControllerBase
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
+    [HttpDelete("RemoveTeam")]
+    public async Task<ActionResult> RemoveMember([FromQuery] RemoveTeamRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Ok(): BadRequest(result.Error);
+    }
 }

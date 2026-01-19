@@ -5,8 +5,8 @@ namespace TeamPlan.Application.DTOs.Team;
 
 public record TeamDashBoardDTO
     (
-        IEnumerable<string>EmailMembers,
-        string EmailManager,
+        IEnumerable<string>NameMembers,
+        string NameManager,
         IEnumerable<Domain.BackOffice.Entities.Task> Task,
         ushort Percentage,
         IEnumerable<Mark>  Marks

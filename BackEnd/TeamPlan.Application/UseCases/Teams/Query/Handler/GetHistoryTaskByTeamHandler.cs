@@ -18,7 +18,9 @@ public class GetHistoryTaskByTeamHandler : HandlerBase,
         var team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
         if (team is null)
             return new Error("Team.NotFound", "Team not found");
-        var tasks = await _unitOfWork.TaskRepository.GetTasksByTeamid(request.TeamId);
-        return Result<IEnumerable<Domain.BackOffice.Entities.Task>>.Success(tasks);
+        var tasks = await _unitOfWork
+            .TaskRepository
+            .GetTasksByTeamid(request.TeamId);
+        return Result<IEnumerable<Domain.BackOffice.Entities.Task>>.Success(tasks.OrderBy(x=>x.Priority));
     }
 }

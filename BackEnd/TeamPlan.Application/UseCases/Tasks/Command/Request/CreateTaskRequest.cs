@@ -15,6 +15,7 @@ public record CreateTaskRequest(CreateTaskDto CreateTaskDto ,Guid? MemberId)
             CreateTaskDto.EndDate, 
             CreateTaskDto.Title,
             CreateTaskDto.Description,
-            CreateTaskDto.TeamId
+            CreateTaskDto.TeamId,
+            CreateTaskDto.Priority
         );
 }

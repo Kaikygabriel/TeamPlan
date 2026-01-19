@@ -49,6 +49,10 @@ public class TaskMap : IEntityTypeConfiguration<Domain.BackOffice.Entities.Task>
             .HasForeignKey(x=>x.MemberId)
             .HasConstraintName("FK_Task_Member")
             .OnDelete(DeleteBehavior.NoAction);
-        
+        builder.Property(x => x.Priority)
+            .HasConversion<string>()
+            .HasColumnType("VARCHAR")
+            .HasMaxLength(15)
+            .IsRequired(true);
     }
 }

@@ -12,7 +12,7 @@ using TeamPlan.Infra.Data.Context;
 namespace TeamPlan.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260118124123_InitialCreate")]
+    [Migration("20260119132620_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -110,7 +110,7 @@ namespace TeamPlan.Api.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<Guid>("TeamId")
+                    b.Property<Guid?>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -172,6 +172,10 @@ namespace TeamPlan.Api.Migrations
                         .HasMaxLength(180)
                         .HasColumnType("NVARCHAR");
 
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
@@ -205,6 +209,7 @@ namespace TeamPlan.Api.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Description");
 
@@ -221,11 +226,17 @@ namespace TeamPlan.Api.Migrations
                         .HasDefaultValue((byte)0)
                         .HasColumnName("Percentage");
 
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("VARCHAR");
+
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(150)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Title");
 
@@ -311,7 +322,6 @@ namespace TeamPlan.Api.Migrations
                         .WithMany("Members")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("FK_Member_Team");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.User", "User")
@@ -390,6 +400,7 @@ namespace TeamPlan.Api.Migrations
                         .WithOne()
                         .HasForeignKey("TeamPlan.Domain.BackOffice.Entities.Team", "ManagerId")
                         .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
                         .HasConstraintName("FK_Team_Manager");
 
                     b.Navigation("Enterprise");

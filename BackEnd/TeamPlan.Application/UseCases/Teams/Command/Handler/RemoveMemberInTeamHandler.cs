@@ -21,6 +21,10 @@ internal class RemoveMemberInTeamHandler : HandlerBase,IRequestHandler<RemoveMem
         var resultRemoveMember = team.RemoveMemberById(request.IdMemberRemove);
         if (!resultRemoveMember.IsSuccess)
             return resultRemoveMember.Error;
+        
+        _unitOfWork.TeamRepository.Update(team);
+        await _unitOfWork.CommitAsync();
+        
         return Result.Success();
     }
 }

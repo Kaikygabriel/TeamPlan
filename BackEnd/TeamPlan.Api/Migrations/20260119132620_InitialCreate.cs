@@ -89,7 +89,7 @@ namespace TeamPlan.Api.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(180)", maxLength: 180, nullable: false),
-                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Role = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
                     ManagedTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -139,7 +139,8 @@ namespace TeamPlan.Api.Migrations
                     DayMonth = table.Column<byte>(type: "TINYINT", nullable: false),
                     DaysActiveTask = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "NVARCHAR(120)", maxLength: 120, nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR(180)", maxLength: 180, nullable: false)
+                    Description = table.Column<string>(type: "NVARCHAR(180)", maxLength: 180, nullable: false),
+                    Priority = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -161,10 +162,11 @@ namespace TeamPlan.Api.Migrations
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Percentage = table.Column<byte>(type: "TINYINT", nullable: false, defaultValue: (byte)0),
-                    Title = table.Column<string>(type: "NVARCHAR", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR", nullable: false),
+                    Title = table.Column<string>(type: "NVARCHAR(150)", maxLength: 150, nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR(200)", maxLength: 200, nullable: false),
                     Active = table.Column<bool>(type: "BIT", nullable: false, defaultValue: true),
-                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Priority = table.Column<string>(type: "VARCHAR(15)", maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {

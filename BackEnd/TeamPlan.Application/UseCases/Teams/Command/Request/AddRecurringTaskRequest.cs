@@ -15,6 +15,7 @@ public record AddRecurringTaskRequest(Guid TeamId, CreateRecurringTaskDto Recurr
             RecurringTaskDto.Description,
             TeamId,
             RecurringTaskDto.DayMonth,
-            RecurringTaskDto.DaysActiveTask
+            RecurringTaskDto.DaysActiveTask,
+            RecurringTaskDto.Priority
         );
 }

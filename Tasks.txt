@@ -1,0 +1,3 @@
+ADICIONAR COMENTARIOS AS TAREFAS , EX : 
+	POST /tasks/123/comments
+	{ "authorId": "u1", "text": "Boa! @maria pode revisar?", "mentions": ["maria"] }

@@ -35,7 +35,7 @@ internal class RecurringTaskService : BackgroundService,IRecurringTaskService
     }
     
     public async Task ActiveRecurringTransaction()
-    {
+    { 
         using var scope = _scopeFactory.CreateScope();
 
         var unitOfWork = scope.ServiceProvider

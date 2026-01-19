@@ -31,6 +31,10 @@ public sealed class RecurringTaskMap : IEntityTypeConfiguration<RecurringTask>
         builder.HasOne(x => x.Team)
             .WithMany(x => x.RecurringTasks)
             .HasForeignKey(x => x.TeamId)
-            .HasConstraintName("FK_RecurringTask_Team");
+            .HasConstraintName("FK_RecurringTask_Team")
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.Property(x => x.Priority)
+            .HasConversion<string>();
     }
 }
