@@ -1,4 +1,3 @@
-# TeamPlan
 
 # TeamPlan
 
