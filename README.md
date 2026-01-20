@@ -33,7 +33,7 @@ Este projeto foi criado com o objetivo de **praticar e consolidar conhecimentos 
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/teamplan.git
+   git clone https://github.com/Kaikygabriel/teamplan.git
    ```
 2. Abra o projeto em uma IDE ou editor de codigo
 3. Configure a string de conexão do banco de dados
