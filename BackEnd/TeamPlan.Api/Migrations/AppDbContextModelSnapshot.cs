@@ -22,6 +22,40 @@ namespace TeamPlan.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CommentParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("SMALLDATETIME");
+
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<Guid>("TaskId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentParentId");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex(new[] { "TaskId" }, "IX_Comments_Task");
+
+                    b.ToTable("Comments", (string)null);
+                });
+
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Enterprise", b =>
                 {
                     b.Property<Guid>("Id")
@@ -252,7 +286,7 @@ namespace TeamPlan.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EnterpriseId")
+                    b.Property<Guid?>("EnterpriseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ManagerId")
@@ -295,6 +329,34 @@ namespace TeamPlan.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Comment", b =>
+                {
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", "CommentParent")
+                        .WithMany("Comments")
+                        .HasForeignKey("CommentParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Comments_Member");
+
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Task", "Task")
+                        .WithMany("Comments")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Comments_Task");
+
+                    b.Navigation("CommentParent");
+
+                    b.Navigation("Member");
+
+                    b.Navigation("Task");
                 });
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Mark", b =>
@@ -390,7 +452,6 @@ namespace TeamPlan.Api.Migrations
                         .WithMany("Teams")
                         .HasForeignKey("EnterpriseId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_Team_Enterprise");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Member", "Manager")
@@ -433,6 +494,11 @@ namespace TeamPlan.Api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Comment", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Enterprise", b =>
                 {
                     b.Navigation("Owner")
@@ -444,6 +510,11 @@ namespace TeamPlan.Api.Migrations
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Member", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Task", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Team", b =>

@@ -13,6 +13,9 @@ public class TaskRepository : Repository<Domain.BackOffice.Entities.Task>,ITaskR
     public async Task<Domain.BackOffice.Entities.Task?> GetByIdWithTeamWithMember(Guid id)
     {
         return await _context.Tasks
+            .AsNoTrackingWithIdentityResolution()
+            .Include(x=>x.Comments)
+            .ThenInclude(x=>x.Comments)
             .Include(x=>x.Team)
             .Include(x=>x.Member)
             .FirstOrDefaultAsync(x => x.Id == id);
@@ -21,6 +24,9 @@ public class TaskRepository : Repository<Domain.BackOffice.Entities.Task>,ITaskR
     public async Task<IEnumerable<Domain.BackOffice.Entities.Task>> GetTasksByTeamid(Guid teamId)
     {
         return await _context.Tasks
+            .AsNoTrackingWithIdentityResolution()
+            .Include(x=>x.Comments)
+            .ThenInclude(x=>x.Comments)
             .AsNoTracking()
             .Where(x => x.TeamId == teamId)
             .ToListAsync();

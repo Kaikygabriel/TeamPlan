@@ -37,12 +37,18 @@ public class Member : Entity
         Role = role;
         return Result.Success();
     }
+    public Result RemoveTeam()
+    {
+        Team = null;
+        TeamId = null;
+        return Result.Success();
+    }
 
     public void UpdateForManager(Team team)
     {
         Team = team;
         TeamId = team.Id;
-        Role = Roles.Manager;
+        Role = Roles.Member;
     } 
     public static class Factories
     {

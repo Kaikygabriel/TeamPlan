@@ -1,3 +1,5 @@
-ADICIONAR COMENTARIOS AS TAREFAS , EX : 
-	POST /tasks/123/comments
-	{ "authorId": "u1", "text": "Boa! @maria pode revisar?", "mentions": ["maria"] }
+Adicionar subcomentarios dentro de comentarios ;
+RESOLVER problema ao dar database update;
+
+FUNCIONALIDADES :
+	PODER ADICIONAR UM TIME SEM ENTERPRISE

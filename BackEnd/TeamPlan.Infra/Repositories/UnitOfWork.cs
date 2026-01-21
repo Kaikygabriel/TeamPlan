@@ -1,4 +1,5 @@
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
+using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Comment;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Enterprise;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Mark;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Member;
@@ -8,6 +9,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Task;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.Team;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories.User;
 using TeamPlan.Infra.Data.Context;
+using TeamPlan.Infra.Repositories.Comment;
 using TeamPlan.Infra.Repositories.Enterprise;
 using TeamPlan.Infra.Repositories.Marks;
 using TeamPlan.Infra.Repositories.Member;
@@ -29,6 +31,8 @@ public class UnitOfWork : IUnitOfWork
     private TeamRepository _teamRepository;
     private TaskRepository _taskRepository;
     private EnterpriseRepository _enterpriseRepository;
+    private CommentRepository _commentRepository;
+    
     private readonly AppDbContext _context;
 
     public UnitOfWork(AppDbContext context)
@@ -99,6 +103,14 @@ public class UnitOfWork : IUnitOfWork
         {
             return _markRepository = _markRepository ?? new(_context);
 
+        }
+    }
+
+    public ICommentRepository CommentRepository
+    {
+        get
+        {
+            return _commentRepository = _commentRepository ?? new(_context);
         }
     }
 

@@ -37,6 +37,15 @@ public class Task: Entity
     public Team Team { get;private set; }
     
     public EPriority Priority { get;init; }
+
+    public List<Comment>Comments { get;private set; } = new();
+
+    public void AddComment(Comment comment)
+        => Comments.Add(comment); 
+    
+    public void Finish()
+        => Active = false;
+
     
     public Result AddMember(Member member)
     {
@@ -46,8 +55,7 @@ public class Task: Entity
         return Result.Success();
     }
 
-    public void Finish()
-        => Active = false;
+    
     public Result AddPercentage(ushort value)
     {
         if (Percentage > 100)

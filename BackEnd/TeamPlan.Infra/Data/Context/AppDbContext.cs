@@ -15,7 +15,8 @@ public class AppDbContext(DbContextOptions<AppDbContext>options) : DbContext(opt
     public DbSet<Enterprise>Enterprises { get; set; }
     public DbSet<RecurringTask>RecurringTasks{ get; set; }
     public DbSet<Mark>Marks { get; set; }
-
+    public DbSet<Comment>Comments { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new RecurringTaskMap());
@@ -26,6 +27,7 @@ public class AppDbContext(DbContextOptions<AppDbContext>options) : DbContext(opt
         modelBuilder.ApplyConfiguration(new TeamMap());
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.ApplyConfiguration(new MarkMap());
+        modelBuilder.ApplyConfiguration(new CommentMap());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -20,7 +20,7 @@ public class GetByIdTaskHandler : HandlerBase,IRequestHandler<GetByIdTaskRequest
         if(task.TeamId != request.TeamId)
             return Result<GetTaskDto>.Failure(new("Team.NotFound", "Not found"));
         var response = new GetTaskDto(task.Title, task.Description, task.CreateAt, task.EndDate,
-            task.Member?.Name,task.Percentage,task.Team.Name);
+            task.Member?.Name,task.Percentage,task.Team.Name,task.Comments.OrderByDescending(x=>x.CreateAt));
         return Result<GetTaskDto>.Success(response);
     }
 }

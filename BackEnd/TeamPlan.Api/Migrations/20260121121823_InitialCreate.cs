@@ -65,6 +65,28 @@ namespace TeamPlan.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Message = table.Column<string>(type: "NVARCHAR(250)", maxLength: 250, nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false),
+                    CommentParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Comments_CommentParentId",
+                        column: x => x.CommentParentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Mark",
                 columns: table => new
                 {
@@ -111,7 +133,7 @@ namespace TeamPlan.Api.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(120)", maxLength: 120, nullable: false),
                     ManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EnterpriseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EnterpriseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PercentageByMonthCurrent = table.Column<byte>(type: "TINYINT", nullable: false, defaultValue: (byte)0)
                 },
                 constraints: table =>
@@ -185,6 +207,21 @@ namespace TeamPlan.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_CommentParentId",
+                table: "Comments",
+                column: "CommentParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_MemberId",
+                table: "Comments",
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_Task",
+                table: "Comments",
+                column: "TaskId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Mark_TeamId",
                 table: "Mark",
                 column: "TeamId");
@@ -250,6 +287,22 @@ namespace TeamPlan.Api.Migrations
                 unique: true);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_Comments_Member",
+                table: "Comments",
+                column: "MemberId",
+                principalTable: "Member",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Comments_Task",
+                table: "Comments",
+                column: "TaskId",
+                principalTable: "Task",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_Mark_Team",
                 table: "Mark",
                 column: "TeamId",
@@ -276,12 +329,11 @@ namespace TeamPlan.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Member_Team",
-                table: "Member");
+                name: "FK_Team_Manager",
+                table: "Team");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Member_Team_ManagedTeamId",
-                table: "Member");
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Mark");
@@ -296,16 +348,16 @@ namespace TeamPlan.Api.Migrations
                 name: "Task");
 
             migrationBuilder.DropTable(
-                name: "Team");
-
-            migrationBuilder.DropTable(
-                name: "Enterprise");
-
-            migrationBuilder.DropTable(
                 name: "Member");
 
             migrationBuilder.DropTable(
+                name: "Team");
+
+            migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Enterprise");
         }
     }
 }

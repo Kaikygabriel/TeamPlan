@@ -1,9 +1,10 @@
 using MediatR;
+using TeamPlan.Application.UseCases.RecurringTask.Command.Request;
 using TeamPlan.Application.UseCases.Teams.Command.Request;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
-namespace TeamPlan.Application.UseCases.Teams.Command.Handler;
+namespace TeamPlan.Application.UseCases.RecurringTask.Command.Handler;
 
 public class RemoveRecurringTaskHandler  : HandlerBase,IRequestHandler<RemoveRecurringTaskRequest,Result>
 {

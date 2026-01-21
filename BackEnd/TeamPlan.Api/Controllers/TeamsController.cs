@@ -1,7 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TeamPlan.Application.DTOs.RecurringTask;
+using TeamPlan.Application.UseCases.Comment.Command.Request;
 using TeamPlan.Application.UseCases.Marks.Command.Request;
+using TeamPlan.Application.UseCases.RecurringTask.Command.Request;
 using TeamPlan.Application.UseCases.Tasks.Command.Request;
 using TeamPlan.Application.UseCases.Teams.Command.Request;
 using TeamPlan.Application.UseCases.Teams.Query.Request;
@@ -25,47 +27,33 @@ public class TeamsController : ControllerBase
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
-    [HttpGet("HistoryTask")]
-    public async Task<ActionResult> HistoryTask([FromQuery]GetHistoryTaskByTeamRequest request)
-    {
-        var result = await _mediator.Send(request);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-    }
-    [HttpGet("ReportByMonth")]
-    public async Task<ActionResult> ReportByMonth([FromQuery]GetReportByMonthRequest request)
-    {
-        var result = await _mediator.Send(request);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-    }
+  
     [HttpPost("AddMemberInTeam")]
     public async Task<ActionResult> AddMemberInTeam(AddMemberInTeamRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
+    
     [HttpPost("CreateRecurringTask")]
     public async Task<ActionResult> CreateRecurringTask(AddRecurringTaskRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Created() : BadRequest(result.Error);
     }
-    [HttpPost("CreateTask")]
-    public async Task<ActionResult> CreateTask(CreateTaskRequest request)
+    
+    [HttpPost("CreateTeam")]
+    public async Task<ActionResult> CreateTeam(CreateTeamRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Created() : BadRequest(result.Error);
     }
+  
     [HttpPost("CreateMark")]
     public async Task<ActionResult> CreateMark(CreateMarkRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Created() : BadRequest(result.Error);
-    }
-    [HttpPut("FinishTask")]
-    public async Task<ActionResult> FinishTask(FinishTaskRequest request)
-    {
-        var result = await _mediator.Send(request);
-        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
 
     [HttpDelete("RemoveMember")]
@@ -76,6 +64,13 @@ public class TeamsController : ControllerBase
     }
     [HttpDelete("RemoveRecurringTask")]
     public async Task<ActionResult> RemoveRecurringTask([FromQuery] RemoveRecurringTaskRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Ok(): BadRequest(result.Error);
+    }
+    
+    [HttpDelete("RemoveTeam")]
+    public async Task<ActionResult> RemoveteTeam([FromQuery]RemoveTeamRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(): BadRequest(result.Error);

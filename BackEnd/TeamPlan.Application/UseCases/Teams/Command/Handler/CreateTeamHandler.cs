@@ -1,26 +1,34 @@
 using MediatR;
 using TeamPlan.Application.UseCases.Teams.Command.Request;
 using TeamPlan.Domain.BackOffice.Commum;
+using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
-using Task = System.Threading.Tasks.Task;
 
 namespace TeamPlan.Application.UseCases.Teams.Command.Handler;
 
-internal class CreateTeamHandler : HandlerBase,IRequestHandler<CreateTeamRequest,Result<Team>>
+internal class CreateTeamHandler : HandlerBase,IRequestHandler<CreateTeamRequest,Result<Guid>>
 {
     public CreateTeamHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
     }
 
-    public async Task<Result<Team>> Handle(CreateTeamRequest request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateTeamRequest request, CancellationToken cancellationToken)
     {
-        var resultCreateTeam = Team.Factories.Create(request.Name,request.Manage);
+        var manager = await _unitOfWork.MemberRepository.GetByPredicate(x=>x.Id == request.ManageId);
+        if (manager is null)
+            return new Error("Member.NotFound", "Not Found");
+
+        var resultCreateTeam = Team.Factories.Create(request.Name, manager);
         if (!resultCreateTeam.IsSuccess)
-            return Result<Team>.Failure(resultCreateTeam.Error);
+            return resultCreateTeam.Error;
+
+        var team = resultCreateTeam.Value;
+
+        manager.AddTeam(team, Roles.Manager);
+        _unitOfWork.TeamRepository.Create(team);
+        await _unitOfWork.CommitAsync();
         
-        _unitOfWork.TeamRepository.Create(resultCreateTeam.Value);
-        
-        return await Task.FromResult(Result<Team>.Success(resultCreateTeam.Value));
+        return Result<Guid>.Success(team.Id);
     }
 }

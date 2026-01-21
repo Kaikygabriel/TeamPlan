@@ -22,7 +22,7 @@ public class EnterprisesController : ControllerBase
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
-    [HttpPost("AddTeam")]
+    [HttpPost("CreateTeamInEnterprise")]
     public async Task<ActionResult> AddTeam(AddTeamInEnterpriseRequest request)
     {
         var result = await _mediator.Send(request);

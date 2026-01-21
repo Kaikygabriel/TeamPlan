@@ -27,6 +27,7 @@ internal class DashBoardTeamHandler : HandlerBase,IRequestHandler<DashBoardTeamR
         var emailUsers = team.Members.Select(x => x.Name);
         var tasksActive = team.Tasks?.Where(x => x.Active).OrderBy(x=>x.Priority) ?? Enumerable.Empty<Task>();
         var marksInProcess = team.Marks?.Where(x => !x.Done) ??  Enumerable.Empty<Mark>();
+        
         var response = new TeamDashBoardDTO(emailUsers, team.Manager.Name, tasksActive, team.PercentageByMonthCurrent,
             marksInProcess);
         return Result<TeamDashBoardDTO>.Success(response);

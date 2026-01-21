@@ -47,9 +47,9 @@ internal class AddTeamInEnterpriseHandler : HandlerBase,IRequestHandler<AddTeamI
     private void UpdateMemberForManage(Member member,Team team)
             => member.UpdateForManager(team);
     
-    private Result<Team> CreateTeam(string Name,Member Manage)
+    private Result<Team> CreateTeam(string name,Member manage)
     {
-        var resultCreateTeam = Team.Factories.Create(Name,Manage);
+        var resultCreateTeam = Team.Factories.Create(name,manage);
         if (!resultCreateTeam.IsSuccess)
             return Result<Team>.Failure(resultCreateTeam.Error);
                 

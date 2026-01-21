@@ -2,9 +2,8 @@ using MediatR;
 using TeamPlan.Application.DTOs.RecurringTask;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
-using TeamPlan.Domain.BackOffice.Entities;
 
-namespace TeamPlan.Application.UseCases.Teams.Command.Request;
+namespace TeamPlan.Application.UseCases.RecurringTask.Command.Request;
 
 public record AddRecurringTaskRequest(Guid TeamId, CreateRecurringTaskDto RecurringTaskDto) : IRequest<Result>
 {

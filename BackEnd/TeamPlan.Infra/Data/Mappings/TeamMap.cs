@@ -35,13 +35,14 @@ public class TeamMap : IEntityTypeConfiguration<Team>
             .WithOne()
             .HasForeignKey<Team>(x => x.ManagerId)
             .HasConstraintName("FK_Team_Manager")
-            .IsRequired(true)
+            .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Enterprise)
             .WithMany(x => x.Teams)
             .HasForeignKey(x => x.EnterpriseId)
             .HasConstraintName("FK_Team_Enterprise")
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(x => x.Members)

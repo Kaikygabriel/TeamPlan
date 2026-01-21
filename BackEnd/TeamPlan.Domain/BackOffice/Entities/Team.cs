@@ -28,8 +28,8 @@ public class Team : Entity
     public List<RecurringTask> RecurringTasks { get;private set; } = new();
     public List<Mark> Marks { get;private set; } = new();
     [JsonIgnore]
-    public Enterprise Enterprise { get;private set; }
-    public Guid  EnterpriseId { get; init; }
+    public Enterprise? Enterprise { get;private set; }
+    public Guid? EnterpriseId { get; init; }
     public ushort PercentageByMonthCurrent { get;private set; }
 
     public void AddMark(Mark mark)
