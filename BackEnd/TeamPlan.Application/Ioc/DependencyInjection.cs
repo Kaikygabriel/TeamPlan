@@ -18,6 +18,7 @@ public static class DependencyInjection
         service.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(HandlerBase).Assembly));
         service.AddScoped<IUserServiceAuth, ServiceUserAuth>();
         service.AddScoped<ITokenService,TokenService>();
+        service.AddScoped<IServiceEmail,ServiceEmail>();
 
         service.AddAuthentication(x =>
         {

@@ -1,10 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TeamPlan.Application.DTOs.RecurringTask;
-using TeamPlan.Application.UseCases.Comment.Command.Request;
 using TeamPlan.Application.UseCases.Marks.Command.Request;
 using TeamPlan.Application.UseCases.RecurringTask.Command.Request;
-using TeamPlan.Application.UseCases.Tasks.Command.Request;
 using TeamPlan.Application.UseCases.Teams.Command.Request;
 using TeamPlan.Application.UseCases.Teams.Query.Request;
 

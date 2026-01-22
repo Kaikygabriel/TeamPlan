@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\TeamPlan.Application\TeamPlan.Application.csproj" />
     <ProjectReference Include="..\TeamPlan.Domain\TeamPlan.Domain.csproj" />
   </ItemGroup>
 

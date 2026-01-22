@@ -5,7 +5,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Enterprises.Command.Handler;
 
-public class RemoveTeamHandler  : HandlerBase,IRequestHandler<Request.RemoveTeamRequest,Result>
+internal class RemoveTeamHandler  : HandlerBase,IRequestHandler<Request.RemoveTeamRequest,Result>
 {
     public RemoveTeamHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
@@ -14,13 +14,12 @@ public class RemoveTeamHandler  : HandlerBase,IRequestHandler<Request.RemoveTeam
     public async Task<Result> Handle(Request.RemoveTeamRequest request, CancellationToken cancellationToken)
     {
         var team = await _unitOfWork.TeamRepository
-            .GetByPredicate(x => x.Id == request.TeamId);
-        if (team is null || team.EnterpriseId != request.EnterpriseId)
+            .GetByIdWithManagerAndEnterprise(request.TeamId);
+        if (team is null || team.Enterprise is null ||team.EnterpriseId != request.EnterpriseId)
             return new Error("Team.NotFound", "Not found!");
-        
-        var enterprise = await _unitOfWork.EnterpriseRepository
-            .GetByPredicate(x=>x.Id == request.EnterpriseId);
-        if (enterprise is null || enterprise.IdOwner != request.OwnerId)
+
+        var enterprise = team.Enterprise;
+        if (enterprise!.IdOwner != request.OwnerId)
             return new Error("Enterprise.NotFound", "Not Found!");
         
         enterprise.RemoveTeam(team);

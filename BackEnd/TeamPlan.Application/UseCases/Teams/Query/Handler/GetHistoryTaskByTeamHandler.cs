@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Teams.Query.handler;
 
-public class GetHistoryTaskByTeamHandler : HandlerBase,
+internal class GetHistoryTaskByTeamHandler : HandlerBase,
     IRequestHandler<GetHistoryTaskByTeamRequest,Result<IEnumerable<Domain.BackOffice.Entities.Task>>>
 {
     public GetHistoryTaskByTeamHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -15,12 +15,13 @@ public class GetHistoryTaskByTeamHandler : HandlerBase,
 
     public async Task<Result<IEnumerable<Domain.BackOffice.Entities.Task>>> Handle(GetHistoryTaskByTeamRequest request, CancellationToken cancellationToken)
     {
-        var team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
-        if (team is null)
-            return new Error("Team.NotFound", "Team not found");
+        request.Pagination.AlterPropertyIfInvalid();
+        
         var tasks = await _unitOfWork
             .TaskRepository
-            .GetTasksByTeamid(request.TeamId);
+            .GetTasksByTeamId(request.TeamId,request.Pagination.Skip,request.Pagination.Take);
+        if (tasks is null)
+            return new Error("Task.NotFound", "Not found");
         return Result<IEnumerable<Domain.BackOffice.Entities.Task>>.Success(tasks.OrderBy(x=>x.Priority));
     }
 }

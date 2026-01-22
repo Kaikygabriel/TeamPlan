@@ -22,8 +22,4 @@
     <ProjectReference Include="..\TeamPlan.Api\TeamPlan.Api.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Backoffice\Entities\" />
-  </ItemGroup>
-
 </Project>

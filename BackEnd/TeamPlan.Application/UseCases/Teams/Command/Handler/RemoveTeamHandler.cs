@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Teams.Command.Handler;
 
-public class RemoveTeamHandler : HandlerBase,IRequestHandler<RemoveTeamRequest,Result>
+internal class RemoveTeamHandler : HandlerBase,IRequestHandler<RemoveTeamRequest,Result>
 {
     public RemoveTeamHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
@@ -14,7 +14,7 @@ public class RemoveTeamHandler : HandlerBase,IRequestHandler<RemoveTeamRequest,R
 
     public async Task<Result> Handle(RemoveTeamRequest request, CancellationToken cancellationToken)
     {
-        var team = await _unitOfWork.TeamRepository.GetByIdWithMembersWithTask(request.TeamId);
+        var team = await _unitOfWork.TeamRepository.GetByIdWithManagerAndEnterprise(request.TeamId);
         if (team is null)
             return new Error("Team.Notfound", "Not Found");
         if(!ManagerIdIsValid(request.Manager,team))

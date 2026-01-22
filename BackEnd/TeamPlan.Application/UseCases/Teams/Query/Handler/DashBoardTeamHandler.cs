@@ -1,39 +1,34 @@
 using MediatR;
-using TeamPlan.Application.DTOs.Team;
+using TeamPlan.Application.DTOs.StoreFront.Team;
+using TeamPlan.Application.Interfaces.Queries;
 using TeamPlan.Application.UseCases.Teams.Query.Request;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
-using TeamPlan.Domain.BackOffice.Entities;
-using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
-using Task = TeamPlan.Domain.BackOffice.Entities.Task;
 
 namespace TeamPlan.Application.UseCases.Teams.Query.handler;
 
-internal class DashBoardTeamHandler : HandlerBase,IRequestHandler<DashBoardTeamRequest,Result<TeamDashBoardDTO>>
+internal class DashBoardTeamHandler : IRequestHandler<DashBoardTeamRequest,Result<TeamDashBoardResponse>>
 {
-    public DashBoardTeamHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    private readonly ITeamQueryService _queryService;
+
+    public DashBoardTeamHandler(ITeamQueryService queryService)
     {
+        _queryService = queryService;
     }
 
-    public async Task<Result<TeamDashBoardDTO>> Handle(DashBoardTeamRequest request, CancellationToken cancellationToken)
+    public async Task<Result<TeamDashBoardResponse>> Handle(DashBoardTeamRequest request, CancellationToken cancellationToken)
     {
-        var team = await _unitOfWork.TeamRepository.GetByIdWithMembersWithTask(request.TeamId);
+        var teamDashBoardResponse = await _queryService.GetTeamDashBoardById(request.TeamId);
         
-        if (team is null)
+        if (teamDashBoardResponse is null)
             return new Error("Team.NotFound", "Team not found!");
-        if(!TeamContainsMember(team,request.Member))
+        if(!TeamContainsMember(teamDashBoardResponse,request.Member))
             return new Error("Member.NotFound.InTeam", "Member Not Found In Team");
         
-        var emailUsers = team.Members.Select(x => x.Name);
-        var tasksActive = team.Tasks?.Where(x => x.Active).OrderBy(x=>x.Priority) ?? Enumerable.Empty<Task>();
-        var marksInProcess = team.Marks?.Where(x => !x.Done) ??  Enumerable.Empty<Mark>();
-        
-        var response = new TeamDashBoardDTO(emailUsers, team.Manager.Name, tasksActive, team.PercentageByMonthCurrent,
-            marksInProcess);
-        return Result<TeamDashBoardDTO>.Success(response);
+        return Result<TeamDashBoardResponse>.Success(teamDashBoardResponse);
     }
 
-    private bool TeamContainsMember(Team team, Guid memberId)
-        => team.Members.Exists(x => x.Id == memberId) 
-           || memberId == team.ManagerId || team.Enterprise.IdOwner == memberId;
+    private bool TeamContainsMember(TeamDashBoardResponse team, Guid memberId)
+        => team.IdMembers.Any(x => x == memberId) 
+           || memberId == team.ManagerId || team.IdOwner == memberId;
 }

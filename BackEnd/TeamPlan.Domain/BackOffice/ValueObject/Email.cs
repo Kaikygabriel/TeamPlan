@@ -27,5 +27,5 @@ public class Email
     }
 
     private static bool AddressIsInvalid(string address)
-        => string.IsNullOrWhiteSpace(address) || address.Length < 3 || !address.Contains('@');
+        => string.IsNullOrWhiteSpace(address) || address.Length <= 3 || !address.Contains('@');
 }

@@ -21,6 +21,7 @@ public class MemberMap : IEntityTypeConfiguration<Member>
             .HasColumnType("VARCHAR")
             .HasMaxLength(100)
             .IsRequired(true);
-       
+        builder.HasIndex(x => x.Name, "IX_Member_Name")
+            .IsUnique();
     }
 }

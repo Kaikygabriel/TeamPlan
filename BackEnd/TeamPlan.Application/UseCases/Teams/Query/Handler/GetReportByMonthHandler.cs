@@ -7,7 +7,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Teams.Query.handler;
 
-public class GetReportByMonthHandler : HandlerBase,IRequestHandler<GetReportByMonthRequest,Result<ReportTaskDto>>
+internal class GetReportByMonthHandler : HandlerBase,IRequestHandler<GetReportByMonthRequest,Result<ReportTaskDto>>
 {
     public GetReportByMonthHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
@@ -15,10 +15,7 @@ public class GetReportByMonthHandler : HandlerBase,IRequestHandler<GetReportByMo
 
     public async Task<Result<ReportTaskDto>> Handle(GetReportByMonthRequest request, CancellationToken cancellationToken)
     {
-        var team = await _unitOfWork.TeamRepository.GetByPredicate(x => x.Id == request.TeamId);
-        if (team is null)
-            return new Error("Team.NotFound", "Not Found");
-        var tasks = await _unitOfWork.TeamRepository.GetTasksInMonthByTaskId(request.TeamId);
+        var tasks = await _unitOfWork.TeamRepository.GetTasksInMonthByTeamId(request.TeamId);
         if(tasks is null)
             return new Error("Task.NotFound", "Not Found");
         var tasksAverageInMonth = tasks!.Count();

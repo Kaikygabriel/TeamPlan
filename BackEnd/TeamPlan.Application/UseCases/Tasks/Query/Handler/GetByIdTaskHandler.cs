@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Tasks.Query.Handler;
 
-public class GetByIdTaskHandler : HandlerBase,IRequestHandler<GetByIdTaskRequest,Result<GetTaskDto>>
+internal class GetByIdTaskHandler : HandlerBase,IRequestHandler<GetByIdTaskRequest,Result<GetTaskDto>>
 {
     public GetByIdTaskHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

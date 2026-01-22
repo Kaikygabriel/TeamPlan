@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.RecurringTask.Command.Handler;
 
-public class AddRecurringTaskHandler : HandlerBase, IRequestHandler<AddRecurringTaskRequest,Result>
+internal class AddRecurringTaskHandler : HandlerBase, IRequestHandler<AddRecurringTaskRequest,Result>
 {
     public AddRecurringTaskHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

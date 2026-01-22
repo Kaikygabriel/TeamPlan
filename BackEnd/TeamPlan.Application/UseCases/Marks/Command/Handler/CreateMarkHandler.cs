@@ -5,7 +5,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Marks.Command.Handler;
 
-public class CreateMarkHandler : HandlerBase,IRequestHandler<CreateMarkRequest,Result>
+internal class CreateMarkHandler : HandlerBase,IRequestHandler<CreateMarkRequest,Result>
 {
     public CreateMarkHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

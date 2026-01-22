@@ -32,7 +32,7 @@ public class Comment : Entity
     public Comment? CommentParent { get;private set; }
     public Guid? CommentParentId { get;private  set; }
     
-    public List<Comment> Comments { get; private set; } = new();
+    public List<Comment> SubComments { get; private set; } = new();
 
     public void AddCommentParent(Comment commentParent)
     {

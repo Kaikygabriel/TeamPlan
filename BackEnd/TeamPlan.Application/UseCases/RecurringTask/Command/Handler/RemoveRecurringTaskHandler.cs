@@ -6,7 +6,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.RecurringTask.Command.Handler;
 
-public class RemoveRecurringTaskHandler  : HandlerBase,IRequestHandler<RemoveRecurringTaskRequest,Result>
+internal class RemoveRecurringTaskHandler  : HandlerBase,IRequestHandler<RemoveRecurringTaskRequest,Result>
 {
     public RemoveRecurringTaskHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

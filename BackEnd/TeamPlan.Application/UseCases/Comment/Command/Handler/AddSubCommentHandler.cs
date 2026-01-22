@@ -5,7 +5,7 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Comment.Command.Handler;
 
-public class AddSubCommentHandler : HandlerBase,IRequestHandler<AddSubCommentRequest,Result>
+internal class AddSubCommentHandler : HandlerBase,IRequestHandler<AddSubCommentRequest,Result>
 {
     public AddSubCommentHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

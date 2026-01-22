@@ -1,10 +1,12 @@
 using TeamPlan.Domain.BackOffice.Entities;
-using Task = TeamPlan.Domain.BackOffice.Entities.Team;
 
-namespace TeamPlan.Application.DTOs.Team;
+namespace TeamPlan.Application.DTOs.StoreFront.Team;
 
-public record TeamDashBoardDTO
+public record TeamDashBoardResponse
     (
+        Guid? IdOwner,
+        Guid ManagerId,
+        IEnumerable<Guid> IdMembers,
         IEnumerable<string>NameMembers,
         string NameManager,
         IEnumerable<Domain.BackOffice.Entities.Task> Task,
