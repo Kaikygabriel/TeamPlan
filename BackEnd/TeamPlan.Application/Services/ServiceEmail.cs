@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using MimeKit;
+using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Interfaces.Services;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
@@ -14,16 +15,16 @@ internal class ServiceEmail : IServiceEmail
         _configuration = configuration;
     }
 
-    public async Task SendEmailAsync(string email, string message,string name,string title)
+    public async Task SendEmailAsync(EmailBuilder email)
     {
         var mensagem = new MimeMessage();
     
         mensagem.From.Add(new MailboxAddress("monetra", _configuration["EmailConfig:Email"]));
         
-        mensagem.To.Add(new MailboxAddress(email, email));
+        mensagem.To.Add(new MailboxAddress(email.Name, email.ToAddress));
     
-        mensagem.Subject = title;
-        mensagem.Body = new TextPart("html") { Text = message };
+        mensagem.Subject = email.Title;
+        mensagem.Body = new TextPart("html") { Text = email.Message };
 
         using (var client = new SmtpClient())
         {

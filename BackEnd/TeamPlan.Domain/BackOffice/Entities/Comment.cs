@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
+using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
 
 namespace TeamPlan.Domain.BackOffice.Entities;

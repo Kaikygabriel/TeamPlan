@@ -35,9 +35,7 @@ public class Task: Entity
     public Guid TeamId { get;private set; }
     [JsonIgnore]
     public Team Team { get;private set; }
-    
     public EPriority Priority { get;init; }
-
     public List<Comment>Comments { get;private set; } = new();
 
     public void AddComment(Comment comment)
@@ -45,7 +43,6 @@ public class Task: Entity
     
     public void Finish()
         => Active = false;
-
     
     public Result AddMember(Member member)
     {

@@ -1,6 +1,6 @@
 namespace TeamPlan.Domain.BackOffice.Commum;
 
-public class Emails
+public class EmailMessage
 {
     public static string Welcome(string address) 
         => $"Boas Vindas  {address}!";

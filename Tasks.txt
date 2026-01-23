@@ -1,5 +1,17 @@
-Adicionar subcomentarios dentro de comentarios ;
-RESOLVER problema ao dar database update;
+1. Workflow Engine (mini BPM)
 
-FUNCIONALIDADES :
-	PODER ADICIONAR UM TIME SEM ENTERPRISE
+Em vez de só “status da tarefa”:
+
+Estados customizáveis por projeto
+(Backlog → In Progress → Review → QA → Done)
+
+Regras entre estados
+
+Não pode ir para Done sem checklist completo
+
+Só role Reviewer pode mover para Review
+
+Histórico de transições (auditável)
+
+CRIAR UM KANBAN, A PARTIR DE UM ARRAY DE STRING OU UM DICTIONARY (SERIA MELHOR PAR ADICIONAR A ORDEM)
+DENTRO DE UMA TAREFA
