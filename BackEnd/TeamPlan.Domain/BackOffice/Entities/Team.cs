@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
+using TeamPlan.Domain.BackOffice.ValueObject;
 
 namespace TeamPlan.Domain.BackOffice.Entities;
 
@@ -31,7 +32,20 @@ public class Team : Entity
     public Enterprise? Enterprise { get;private set; }
     public Guid? EnterpriseId { get; init; }
     public ushort PercentageByMonthCurrent { get;private set; }
+    public List<Kanban> Kanbans { get; private set; } = new();
 
+    public void AddKanban(Kanban kanban)
+        => Kanbans.Add(kanban);
+    public Result RemoveKanbanByName(string titleKanban)
+    {
+        var kanban = Kanbans.FirstOrDefault(x => x.Title == titleKanban);
+        if (kanban is null)
+            return new Error("Kanban.NotFound", "not found!");
+        Kanbans.Remove(kanban);
+        return Result.Success();
+    }
+    
+    
     public void AddMark(Mark mark)
         => Marks.Add(mark);
     public void AddTask(Task task)

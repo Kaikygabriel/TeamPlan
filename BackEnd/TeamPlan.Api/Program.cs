@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using TeamPlan.Application.Ioc;
 using TeamPlan.Infra.Data.Context;
 using TeamPlan.Infra.Ioc;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

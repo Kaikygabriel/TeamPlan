@@ -3,6 +3,7 @@ using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Commum.Abstraction;
 using TeamPlan.Domain.BackOffice.Entities.Abstraction;
 using TeamPlan.Domain.BackOffice.Enum;
+using TeamPlan.Domain.BackOffice.ValueObject;
 
 namespace TeamPlan.Domain.BackOffice.Entities;
 
@@ -37,7 +38,11 @@ public class Task: Entity
     public Team Team { get;private set; }
     public EPriority Priority { get;init; }
     public List<Comment>Comments { get;private set; } = new();
-
+    public ushort? KanbanCurrent {get; private set; }
+    
+    public void AlterCurrentKanban(ushort order)
+        => KanbanCurrent = order;
+    
     public void AddComment(Comment comment)
         => Comments.Add(comment); 
     

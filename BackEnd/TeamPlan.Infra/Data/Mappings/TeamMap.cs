@@ -51,5 +51,23 @@ public class TeamMap : IEntityTypeConfiguration<Team>
             .HasConstraintName("FK_Member_Team")
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
+        
+              builder.OwnsMany(x => x.Kanbans, x =>
+                {
+                    x.HasKey(x => x.Id);
+                    x.WithOwner().HasForeignKey("TeamId");
+        
+                    x.Property(x => x.Title)
+                        .HasColumnName("KanbanTitle")
+                        .HasColumnType("VARCHAR")
+                        .HasMaxLength(120)
+                        .IsRequired();
+        
+                    x.Property(x => x.Order)
+                        .HasColumnName("KanbanOrder")
+                        .HasColumnType("TINYINT")
+                        .IsRequired();
+                });
+
     }
 }

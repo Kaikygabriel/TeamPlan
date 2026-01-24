@@ -8,8 +8,11 @@ public class TaskMap : IEntityTypeConfiguration<Domain.BackOffice.Entities.Task>
     {
         builder.ToTable("Task");
 
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id) ;
 
+        builder.Property(x => x.Id)
+            .ValueGeneratedNever();
+        
         builder.Property(x => x.Percentage)
             .HasColumnType("TINYINT")
             .HasDefaultValue(0)
@@ -23,12 +26,12 @@ public class TaskMap : IEntityTypeConfiguration<Domain.BackOffice.Entities.Task>
             .IsRequired(true);
 
         builder.Property(x => x.CreateAt)
-            .HasColumnName("DATETIME")
+            .HasColumnType("SMALLDATETIME")
             .HasColumnName("CreateAt")
             .IsRequired(true);
         
         builder.Property(x => x.EndDate)
-            .HasColumnName("DATETIME")
+            .HasColumnType("SMALLDATETIME")
             .HasColumnName("EndDate")
             .IsRequired(true);
 
@@ -49,10 +52,18 @@ public class TaskMap : IEntityTypeConfiguration<Domain.BackOffice.Entities.Task>
             .HasForeignKey(x=>x.MemberId)
             .HasConstraintName("FK_Task_Member")
             .OnDelete(DeleteBehavior.NoAction);
+        
         builder.Property(x => x.Priority)
             .HasConversion<string>()
             .HasColumnType("VARCHAR")
             .HasMaxLength(15)
             .IsRequired(true);
+
+  
+        builder.Property(x => x.KanbanCurrent)
+            .HasColumnType("TINYINT")
+            .HasColumnName("KanbanCurrent")
+            .IsRequired(false);
+
     }
 }
