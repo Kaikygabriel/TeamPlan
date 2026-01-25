@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TeamPlan.Application.UseCases.Comment.Command.Request;
+using TeamPlan.Application.UseCases.Kanban.Command.Request;
 using TeamPlan.Application.UseCases.Tasks.Command.Request;
 using TeamPlan.Application.UseCases.Tasks.Query.Request;
 using TeamPlan.Application.UseCases.Teams.Query.Request;
@@ -46,7 +47,12 @@ public class TasksController : ControllerBase
         return result.IsSuccess ? Created() : BadRequest(result.Error);
     }
     
-  
+    [HttpPost("AddKanbanInTeam")]
+    public async Task<ActionResult> AddKanbanInTeam(AddKanbanInTaskRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Created() : BadRequest(result.Error);
+    }
     
     [HttpPost("CreateSubComment")]
     public async Task<ActionResult> CreateSubComment(AddSubCommentRequest request)

@@ -52,7 +52,7 @@ public class TeamMap : IEntityTypeConfiguration<Team>
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
         
-              builder.OwnsMany(x => x.Kanbans, x =>
+        builder.OwnsMany(x => x.Kanbans, x =>
                 {
                     x.HasKey(x => x.Id);
                     x.WithOwner().HasForeignKey("TeamId");

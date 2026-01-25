@@ -13,7 +13,7 @@ internal class RemoveMemberInTeamHandler : HandlerBase,IRequestHandler<RemoveMem
 
     public async Task<Result> Handle(RemoveMemberInTeamRequest request, CancellationToken cancellationToken)
     {
-        var team = await _unitOfWork.TeamRepository.GetByIdWithMember(request.TeamId);
+        var team = await _unitOfWork.TeamRepository.GetByIdWithMembers(request.TeamId);
         if (team is null)
             return new Error("Team.NotFound","not found!");
         if (team.ManagerId != request.ManagerId) 

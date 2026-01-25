@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using TeamPlan.Application.DTOs.StoreFront.Tasks;
+using TeamPlan.Application.DTOs.Tasks;
 using TeamPlan.Domain.BackOffice.Entities;
 using TeamPlan.Infra.Data.Mappings;
 using Task = TeamPlan.Domain.BackOffice.Entities.Task;
@@ -16,7 +18,6 @@ public class AppDbContext(DbContextOptions<AppDbContext>options) : DbContext(opt
     public DbSet<RecurringTask>RecurringTasks{ get; set; }
     public DbSet<Mark>Marks { get; set; }
     public DbSet<Comment>Comments { get; set; }
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new RecurringTaskMap());

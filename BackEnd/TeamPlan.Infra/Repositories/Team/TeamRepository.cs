@@ -19,13 +19,21 @@ public class TeamRepository  : Repository<Domain.BackOffice.Entities.Team>,ITeam
             .FirstOrDefaultAsync(x=>x.Id == id);
     }
 
-    public async Task<Domain.BackOffice.Entities.Team?> GetByIdWithMember(Guid id)
+    public async Task<Domain.BackOffice.Entities.Team?> GetByIdWithMembers(Guid id)
     {
         return  await _context
             .Teams
             .Include(x=>x.Members)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+    
+        public async Task<Domain.BackOffice.Entities.Team?> GetByIdWithTasks(Guid id)
+        {
+            return  await _context
+                .Teams
+                .Include(x=>x.Tasks)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
 
     public async Task<IEnumerable<Domain.BackOffice.Entities.Task>> GetTasksInMonthByTeamId(Guid id)
     {

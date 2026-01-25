@@ -1,4 +1,4 @@
-﻿ IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
 BEGIN
     CREATE TABLE [__EFMigrationsHistory] (
         [MigrationId] nvarchar(150) NOT NULL,
@@ -187,6 +187,21 @@ CREATE INDEX [IX_Kanban_TaskId] ON [Kanban] ([TaskId]);
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
 VALUES (N'20260124133531_v2', N'10.0.1');
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+ALTER TABLE [Kanban] DROP CONSTRAINT [FK_Kanban_Task_TaskId];
+
+EXEC sp_rename N'[Kanban].[TaskId]', N'TeamId', 'COLUMN';
+
+EXEC sp_rename N'[Kanban].[IX_Kanban_TaskId]', N'IX_Kanban_TeamId', 'INDEX';
+
+ALTER TABLE [Kanban] ADD CONSTRAINT [FK_Kanban_Team_TeamId] FOREIGN KEY ([TeamId]) REFERENCES [Team] ([Id]) ON DELETE CASCADE;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260125131841_v3', N'10.0.1');
 
 COMMIT;
 GO

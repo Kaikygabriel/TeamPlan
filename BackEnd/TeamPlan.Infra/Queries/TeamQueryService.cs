@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using TeamPlan.Application.DTOs.StoreFront.Team;
 using TeamPlan.Application.Interfaces.Queries;
+using TeamPlan.Domain.BackOffice.Entities;
 using TeamPlan.Infra.Data.Context;
 
 namespace TeamPlan.Infra.Queries;
@@ -31,5 +33,14 @@ internal class TeamQueryService : ITeamQueryService
                     x.PercentageByMonthCurrent,
                     x.Marks.Where(x => !x.Done))
             ).FirstOrDefaultAsync();
+    }
+    public async Task<Team?> GetTeamWithTasksAndKanban(Guid id)
+    {
+        return await _context
+            .Teams
+            .AsNoTracking()
+            .Include(x => x.Tasks)
+            .Include(x => x.Kanbans)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 }

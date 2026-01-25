@@ -44,7 +44,14 @@ public class Team : Entity
         Kanbans.Remove(kanban);
         return Result.Success();
     }
-    
+
+    public Result<int> GetIndexKanbanByTitle(string title)
+    {
+        var kanban = Kanbans.FirstOrDefault(x => x.Title == title);
+        if (kanban is null)
+            return new Error("kanban.notFound", "not found");
+        return Result<int>.Success(kanban.Order);
+    }
     
     public void AddMark(Mark mark)
         => Marks.Add(mark);
