@@ -36,8 +36,8 @@ public class CommentMap  : IEntityTypeConfiguration<Comment>
         builder.HasOne(x => x.CommentParent)
             .WithMany(x => x.SubComments)
             .HasForeignKey(x => x.CommentParentId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .IsRequired(false);//null, cuidado pode estar saindo como not null no banco (Não sei pq )
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
 
         builder.HasIndex(x => x.TaskId,"IX_Comments_Task");
     }

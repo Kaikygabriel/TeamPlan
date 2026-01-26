@@ -54,7 +54,12 @@ public class Member : Entity
     {
         public static Result<Member> Create(string name,User user)
         {
+            if (NameIsInvalid(name))
+                return new Error("Name.Invalid", "name invalid!");
             return Result<Member>.Success(new(name,user));
         }
     }
+
+    private static bool NameIsInvalid(string name)
+        => string.IsNullOrEmpty(name) || name.Length <= 2;
 }

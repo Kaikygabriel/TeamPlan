@@ -24,6 +24,12 @@ public class TasksController : ControllerBase
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    } 
+    [HttpGet("DashBoardTasksInTeam")]
+    public async Task<ActionResult> TasksInTeamDashBoard([FromQuery]DashBoardTasksInTeamRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
     
     [HttpGet("ReportByMonth")]

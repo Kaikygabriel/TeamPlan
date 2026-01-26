@@ -5,13 +5,13 @@ using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 
 namespace TeamPlan.Application.UseCases.Kanban.Command.Handler;
 
-public class AddKanbanHandler : HandlerBase,IRequestHandler<AddKanbanRequest,Result>
+public class CreateKanbanHandler : HandlerBase,IRequestHandler<CreateKanbanRequest,Result>
 {
-    public AddKanbanHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public CreateKanbanHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
     }
 
-    public async Task<Result> Handle(AddKanbanRequest request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateKanbanRequest request, CancellationToken cancellationToken)
     {
         var resultCreateKanban = request.ToEntity();
         if (!resultCreateKanban.IsSuccess)

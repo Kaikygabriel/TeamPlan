@@ -1,5 +1,5 @@
-using Task = TeamPlan.Domain.BackOffice.Entities.Task;
+using TeamPlan.Application.DTOs.StoreFront.Tasks;
 
 namespace TeamPlan.Application.DTOs.StoreFront.Team;
 
-public record TaskInTeamDashBoard(Domain.BackOffice.Entities.Team Team,IEnumerable<Task>Tasks);
+public record TaskInTeamDashBoard(TeamViewDashBoardTaskInTeam Team,IEnumerable<TaskViewDashBoardTaskInTeam>Tasks);

@@ -1,4 +1,5 @@
 using MediatR;
+using TeamPlan.Application.DTOs.StoreFront.Tasks;
 using TeamPlan.Application.DTOs.StoreFront.Team;
 using TeamPlan.Application.Interfaces.Queries;
 using TeamPlan.Application.UseCases.Teams.Query.Request;
@@ -21,7 +22,9 @@ public class DashBoardTasksInTeamHandler : IRequestHandler<DashBoardTasksInTeamR
         var team = await _service.GetTeamWithTasksAndKanban(request.TeamId);
         if (team is null)
             return new Error("Team.NotFound", "Not Found");
-        var response = new TaskInTeamDashBoard(team, team.Tasks);
+        var taskViews = TaskViewDashBoardTaskInTeam.FromIEnumerableTaskView(team.Tasks);
+        var teamView = (TeamViewDashBoardTaskInTeam)team;
+        var response = new TaskInTeamDashBoard(teamView, taskViews);
         return Result<TaskInTeamDashBoard>.Success(response);
     }
 }

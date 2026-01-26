@@ -40,7 +40,7 @@ public class TeamsController : ControllerBase
         return result.IsSuccess ? Created() : BadRequest(result.Error);
     }
     [HttpPost("CreateKanban")]
-    public async Task<ActionResult> CreateKanban(AddKanbanRequest request)
+    public async Task<ActionResult> CreateKanban(CreateKanbanRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Created() : BadRequest(result.Error);

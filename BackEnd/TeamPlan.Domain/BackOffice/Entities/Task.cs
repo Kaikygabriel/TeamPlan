@@ -60,7 +60,7 @@ public class Task: Entity
     
     public Result AddPercentage(ushort value)
     {
-        if (Percentage > 100)
+        if (Percentage > 100 || value > 100)
             return new Error("Percentage.Invalid", "Percentage > 100");
         var sum = Math.Min(100, Percentage + value);
         
@@ -78,8 +78,14 @@ public class Task: Entity
         public static Result<Task> Create
             (DateTime endDate, string title, string description,Guid teamId,EPriority priority)
         {
+            if (TitleOrDescriptionIsInvalid(title, description))
+                return new Error("TitleOrDescription.Invalid", "Invalid");
             return Result<Task>.Success(new(endDate, title, description,teamId,priority));
         }
     }
-    
+
+
+    private static bool TitleOrDescriptionIsInvalid(string title, string description)
+        => string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || title.Length <= 2 || description.Length <= 2;
+
 }

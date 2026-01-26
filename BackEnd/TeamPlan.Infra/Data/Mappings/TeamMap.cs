@@ -68,6 +68,7 @@ public class TeamMap : IEntityTypeConfiguration<Team>
                         .HasColumnType("TINYINT")
                         .IsRequired();
                 });
-
+        builder.HasIndex(x => x.Name, "Ix_Task_Name")
+            .IsUnique();
     }
 }
