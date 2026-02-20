@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,7 @@ internal  class TokenService : ITokenService
     
     public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+        var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
         var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
@@ -34,5 +35,12 @@ internal  class TokenService : ITokenService
     public string GetRoleByToken(string token)
     {
         throw new NotImplementedException();
+    }
+
+    public string GenerateRefreshToken()
+    {
+        var bytes = new byte[130];
+        RandomNumberGenerator.Fill(bytes);
+        return Convert.ToBase64String(bytes);
     }
 }

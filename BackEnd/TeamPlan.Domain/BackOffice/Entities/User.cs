@@ -20,7 +20,11 @@ public class User : Entity
 
     public Email Email { get;init; }
     public Password Password { get;private set; }
+    public RefreshToken RefreshToken { get;private set; }
 
+    public void AddRefreshToken(RefreshToken token)
+        => RefreshToken = token;
+    
     public Result AlterPassword(string password)
         => Password.Update(password);
    

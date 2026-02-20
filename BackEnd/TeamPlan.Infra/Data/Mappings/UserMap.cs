@@ -22,7 +22,16 @@ public class UserMap : IEntityTypeConfiguration<User>
                 .IsRequired(true);
             x.HasIndex(e => e.Address).IsUnique(); 
         });
-        
+        builder.OwnsOne(x => x.RefreshToken, x =>
+        {
+            x.Property(x => x.Token)
+                .HasColumnType("Text")
+                .IsRequired(false);
+            x.Property(x => x.DateExpired)
+                .HasColumnType("DATETIME2")
+                .IsRequired(false);
+
+        });
         builder.Property(x => x.Password)
             .HasConversion(x => x.PasswordHash, x => Password.Factory.CreateWithPasswordHashAlready(x).Value)
             .HasMaxLength(100)

@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeamPlan.Application.UseCases.Kanban.Command.Request;
 using TeamPlan.Application.UseCases.Marks.Command.Request;
@@ -8,6 +9,7 @@ using TeamPlan.Application.UseCases.Teams.Query.Request;
 
 namespace TeamPlan.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class TeamsController : ControllerBase

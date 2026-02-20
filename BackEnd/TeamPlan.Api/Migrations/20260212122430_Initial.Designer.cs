@@ -12,8 +12,8 @@ using TeamPlan.Infra.Data.Context;
 namespace TeamPlan.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260124133531_v2")]
-    partial class v2
+    [Migration("20260212122430_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace TeamPlan.Api.Migrations
                     b.Property<Guid?>("CommentParentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CommentParentId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("SMALLDATETIME");
 
@@ -51,6 +54,8 @@ namespace TeamPlan.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CommentParentId");
+
+                    b.HasIndex("CommentParentId1");
 
                     b.HasIndex("MemberId");
 
@@ -320,6 +325,9 @@ namespace TeamPlan.Api.Migrations
                     b.HasIndex("ManagerId")
                         .IsUnique();
 
+                    b.HasIndex(new[] { "Name" }, "Ix_Task_Name")
+                        .IsUnique();
+
                     b.ToTable("Team", (string)null);
                 });
 
@@ -342,10 +350,14 @@ namespace TeamPlan.Api.Migrations
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Comment", b =>
                 {
-                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", "CommentParent")
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", null)
                         .WithMany("SubComments")
                         .HasForeignKey("CommentParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", "CommentParent")
+                        .WithMany()
+                        .HasForeignKey("CommentParentId1");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Member", "Member")
                         .WithMany()
@@ -450,37 +462,6 @@ namespace TeamPlan.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("TeamPlan.Domain.BackOffice.ValueObject.Kanban", "Kanbans", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<byte>("Order")
-                                .HasColumnType("TINYINT")
-                                .HasColumnName("KanbanOrder");
-
-                            b1.Property<Guid>("TaskId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Title")
-                                .IsRequired()
-                                .HasMaxLength(120)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("KanbanTitle");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("TaskId");
-
-                            b1.ToTable("Kanban");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TaskId");
-                        });
-
-                    b.Navigation("Kanbans");
-
                     b.Navigation("Member");
 
                     b.Navigation("Team");
@@ -501,7 +482,38 @@ namespace TeamPlan.Api.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Team_Manager");
 
+                    b.OwnsMany("TeamPlan.Domain.BackOffice.ValueObject.Kanban", "Kanbans", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<byte>("Order")
+                                .HasColumnType("TINYINT")
+                                .HasColumnName("KanbanOrder");
+
+                            b1.Property<Guid>("TeamId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasMaxLength(120)
+                                .HasColumnType("VARCHAR")
+                                .HasColumnName("KanbanTitle");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("TeamId");
+
+                            b1.ToTable("Kanban");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TeamId");
+                        });
+
                     b.Navigation("Enterprise");
+
+                    b.Navigation("Kanbans");
 
                     b.Navigation("Manager");
                 });

@@ -31,6 +31,9 @@ namespace TeamPlan.Api.Migrations
                     b.Property<Guid?>("CommentParentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CommentParentId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("SMALLDATETIME");
 
@@ -48,6 +51,8 @@ namespace TeamPlan.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CommentParentId");
+
+                    b.HasIndex("CommentParentId1");
 
                     b.HasIndex("MemberId");
 
@@ -317,6 +322,9 @@ namespace TeamPlan.Api.Migrations
                     b.HasIndex("ManagerId")
                         .IsUnique();
 
+                    b.HasIndex(new[] { "Name" }, "Ix_Task_Name")
+                        .IsUnique();
+
                     b.ToTable("Team", (string)null);
                 });
 
@@ -339,10 +347,14 @@ namespace TeamPlan.Api.Migrations
 
             modelBuilder.Entity("TeamPlan.Domain.BackOffice.Entities.Comment", b =>
                 {
-                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", "CommentParent")
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", null)
                         .WithMany("SubComments")
                         .HasForeignKey("CommentParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("TeamPlan.Domain.BackOffice.Entities.Comment", "CommentParent")
+                        .WithMany()
+                        .HasForeignKey("CommentParentId1");
 
                     b.HasOne("TeamPlan.Domain.BackOffice.Entities.Member", "Member")
                         .WithMany()

@@ -20,15 +20,7 @@ public class AppDbContext(DbContextOptions<AppDbContext>options) : DbContext(opt
     public DbSet<Comment>Comments { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new RecurringTaskMap());
-        modelBuilder.ApplyConfiguration(new EnterpriseMap());
-        modelBuilder.ApplyConfiguration(new MemberMap());
-        modelBuilder.ApplyConfiguration(new OwnerMap());
-        modelBuilder.ApplyConfiguration(new TaskMap());
-        modelBuilder.ApplyConfiguration(new TeamMap());
-        modelBuilder.ApplyConfiguration(new UserMap());
-        modelBuilder.ApplyConfiguration(new MarkMap());
-        modelBuilder.ApplyConfiguration(new CommentMap());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

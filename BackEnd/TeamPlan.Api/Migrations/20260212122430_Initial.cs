@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TeamPlan.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,6 +73,7 @@ namespace TeamPlan.Api.Migrations
                     MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Message = table.Column<string>(type: "NVARCHAR(250)", maxLength: 250, nullable: false),
                     CreateAt = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false),
+                    CommentParentId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CommentParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -82,8 +83,26 @@ namespace TeamPlan.Api.Migrations
                         name: "FK_Comments_Comments_CommentParentId",
                         column: x => x.CommentParentId,
                         principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Comments_Comments_CommentParentId1",
+                        column: x => x.CommentParentId1,
+                        principalTable: "Comments",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Kanban",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    KanbanTitle = table.Column<string>(type: "VARCHAR(120)", maxLength: 120, nullable: false),
+                    KanbanOrder = table.Column<byte>(type: "TINYINT", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kanban", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,14 +200,15 @@ namespace TeamPlan.Api.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false),
                     Percentage = table.Column<byte>(type: "TINYINT", nullable: false, defaultValue: (byte)0),
                     Title = table.Column<string>(type: "NVARCHAR(150)", maxLength: 150, nullable: false),
                     Description = table.Column<string>(type: "NVARCHAR(200)", maxLength: 200, nullable: false),
                     Active = table.Column<bool>(type: "BIT", nullable: false, defaultValue: true),
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Priority = table.Column<string>(type: "VARCHAR(15)", maxLength: 15, nullable: false)
+                    Priority = table.Column<string>(type: "VARCHAR(15)", maxLength: 15, nullable: false),
+                    KanbanCurrent = table.Column<byte>(type: "TINYINT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,6 +232,11 @@ namespace TeamPlan.Api.Migrations
                 column: "CommentParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_CommentParentId1",
+                table: "Comments",
+                column: "CommentParentId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_MemberId",
                 table: "Comments",
                 column: "MemberId");
@@ -222,6 +247,11 @@ namespace TeamPlan.Api.Migrations
                 column: "TaskId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Kanban_TeamId",
+                table: "Kanban",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Mark_TeamId",
                 table: "Mark",
                 column: "TeamId");
@@ -230,6 +260,12 @@ namespace TeamPlan.Api.Migrations
                 name: "IX_Member_ManagedTeamId",
                 table: "Member",
                 column: "ManagedTeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Member_Name",
+                table: "Member",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Member_TeamId",
@@ -270,6 +306,12 @@ namespace TeamPlan.Api.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
+                name: "Ix_Task_Name",
+                table: "Team",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Team_EnterpriseId",
                 table: "Team",
                 column: "EnterpriseId");
@@ -299,6 +341,14 @@ namespace TeamPlan.Api.Migrations
                 table: "Comments",
                 column: "TaskId",
                 principalTable: "Task",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Kanban_Team_TeamId",
+                table: "Kanban",
+                column: "TeamId",
+                principalTable: "Team",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
@@ -334,6 +384,9 @@ namespace TeamPlan.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Kanban");
 
             migrationBuilder.DropTable(
                 name: "Mark");

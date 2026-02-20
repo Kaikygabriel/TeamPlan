@@ -1,10 +1,13 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeamPlan.Application.UseCases.Enterprises.Command.Request;
 using TeamPlan.Application.UseCases.Enterprises.Query.Request;
+using TeamPlan.Domain.BackOffice.Commum;
 
 namespace TeamPlan.Api.Controllers;
 
+[Authorize(Roles.Owner)]
 [ApiController]
 [Route("[controller]")]
 public class EnterprisesController : ControllerBase

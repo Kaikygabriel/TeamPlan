@@ -6,4 +6,5 @@ public interface ITokenService
 {
     string GenerateAccessToken(IEnumerable<Claim>claims);
     string GetRoleByToken(string token);
+    string GenerateRefreshToken();
 }

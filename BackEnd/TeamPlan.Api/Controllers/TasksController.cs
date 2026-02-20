@@ -1,13 +1,16 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeamPlan.Application.UseCases.Comment.Command.Request;
 using TeamPlan.Application.UseCases.Kanban.Command.Request;
 using TeamPlan.Application.UseCases.Tasks.Command.Request;
 using TeamPlan.Application.UseCases.Tasks.Query.Request;
 using TeamPlan.Application.UseCases.Teams.Query.Request;
+using TeamPlan.Domain.BackOffice.Commum;
 
 namespace TeamPlan.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class TasksController : ControllerBase
@@ -18,7 +21,6 @@ public class TasksController : ControllerBase
     {
         _mediator = mediator;
     }
-    
     [HttpGet("GetById")]
     public async Task<ActionResult> ReportByMonth([FromQuery]GetByIdTaskRequest request)
     {
@@ -31,7 +33,6 @@ public class TasksController : ControllerBase
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
-    
     [HttpGet("ReportByMonth")]
     public async Task<ActionResult> ReportByMonth([FromQuery]GetReportByMonthRequest request)
     {
@@ -80,6 +81,4 @@ public class TasksController : ControllerBase
         var result = await _mediator.Send(request);
         return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
-    
-  
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using TeamPlan.Domain.BackOffice.Entities;
 
 namespace TeamPlan.Infra.Data.Mappings;
@@ -33,11 +34,19 @@ public class CommentMap  : IEntityTypeConfiguration<Comment>
             .HasConstraintName("FK_Comments_Task")
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(x => x.CommentParent)
+        
+        builder.HasOne<Comment>()
             .WithMany(x => x.SubComments)
             .HasForeignKey(x => x.CommentParentId)
-            .OnDelete(DeleteBehavior.Cascade)
+            .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(false);
+
+        //
+        // builder.HasOne(x => x.CommentParent)
+        //     .WithMany(x => x.SubComments)
+        //     .HasForeignKey(x => x.CommentParentId)
+        //     .OnDelete(DeleteBehavior.Cascade)
+        //     .IsRequired(false);
 
         builder.HasIndex(x => x.TaskId,"IX_Comments_Task");
     }
