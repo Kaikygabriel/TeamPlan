@@ -17,7 +17,7 @@ namespace TeamPlan.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.1")
+                .HasAnnotation("ProductVersion", "10.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -539,7 +539,29 @@ namespace TeamPlan.Api.Migrations
                                 .HasForeignKey("UserId");
                         });
 
+                    b.OwnsOne("TeamPlan.Domain.BackOffice.ValueObject.RefreshToken", "RefreshToken", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DateExpired")
+                                .HasColumnType("DATETIME2");
+
+                            b1.Property<string>("Token")
+                                .HasColumnType("Text");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("User");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
                     b.Navigation("Email")
+                        .IsRequired();
+
+                    b.Navigation("RefreshToken")
                         .IsRequired();
                 });
 

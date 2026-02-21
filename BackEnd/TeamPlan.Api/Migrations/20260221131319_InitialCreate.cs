@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TeamPlan.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,9 @@ namespace TeamPlan.Api.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "NVARCHAR(180)", maxLength: 180, nullable: false),
-                    Password = table.Column<string>(type: "NVARCHAR(100)", maxLength: 100, nullable: false)
+                    Password = table.Column<string>(type: "NVARCHAR(100)", maxLength: 100, nullable: false),
+                    RefreshToken_Token = table.Column<string>(type: "Text", nullable: true),
+                    RefreshToken_DateExpired = table.Column<DateTime>(type: "DATETIME2", nullable: true)
                 },
                 constraints: table =>
                 {

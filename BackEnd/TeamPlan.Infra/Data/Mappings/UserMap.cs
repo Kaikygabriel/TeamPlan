@@ -27,7 +27,7 @@ public class UserMap : IEntityTypeConfiguration<User>
             x.Property(x => x.Token)
                 .HasColumnType("Text")
                 .IsRequired(false);
-            x.Property(x => x.DateExpired)
+            x.Property(x => x.DateExpired) 
                 .HasColumnType("DATETIME2")
                 .IsRequired(false);
 

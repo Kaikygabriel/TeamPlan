@@ -4,6 +4,7 @@ using TeamPlan.Application.UseCases.Members.Command.Response;
 using TeamPlan.Domain.BackOffice.Commum;
 using TeamPlan.Domain.BackOffice.Interfaces.Repositories;
 using TeamPlan.Domain.BackOffice.Interfaces.Services;
+using TeamPlan.Domain.BackOffice.ValueObject;
 
 namespace TeamPlan.Application.UseCases.Members.Command.Handler;
 
@@ -22,8 +23,12 @@ internal class LoginMemberHandler : HandlerBaseMemberAuth,IRequestHandler<LoginM
             return Result<AuthMemberResponse>.Failure(resultUser.Error);
         var member = await _unitOfWork.MemberRepository.GetByEmail(request.Email);
 
+        var refreshToken = TokenService.GenerateRefreshToken();
+        member.User.AddRefreshToken(RefreshToken.Factory.Create(refreshToken).Value);
         var token = GenerateAcessTokenByMember(member);
-        var response = new AuthMemberResponse(token, member.Id);
+        var response = new AuthMemberResponse(token, member.User.Id,refreshToken);
+
+        await _unitOfWork.CommitAsync();
         return Result<AuthMemberResponse>.Success(response);
     }
 }

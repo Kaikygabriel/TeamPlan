@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TeamPlan.Application.UseCases.Members.Command.Request;
+using TeamPlan.Domain.BackOffice.ValueObject;
 
 namespace TeamPlan.Api.Controllers;
 
@@ -23,6 +24,12 @@ public class MembersController : ControllerBase
     
     [HttpPost("Login")]
     public async Task<ActionResult> Login(LoginMemberRequest request)
+    {
+        var result = await _mediator.Send(request);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+    [HttpPost("RefreshToken")]
+    public async Task<ActionResult> RefreshToken(RefreshTokenRequest request)
     {
         var result = await _mediator.Send(request);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
